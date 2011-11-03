@@ -32,6 +32,28 @@
    ----------------------------------------------------------------------
  */
 
+function storeRawPostData ($raw_post_data) {
+   global $DB;
+
+   $zipFile = GLPI_PLUGIN_DOC_DIR."/fusioninventory/big-history.zip";
+   $zip = new ZipArchive;
+   $ret = $DB->query("SELECT GET_LOCK('zip', 15)");
+   if ($DB->result($ret, 0, 0) == 1) {
+	 if ($zip->open($zipFile, ZipArchive::CREATE) === TRUE) {
+	    for( $i = 0; $zip->numFiles - $i > 20000; $i++ ){
+	       $zip->deleteIndex( $i );
+	    }
+	    $zip->addFromString( microtime(1), $GLOBALS["HTTP_RAW_POST_DATA"]);
+	    $zip->close();
+	 } else {
+	    error_log("Fails to open $zipFile");
+	 }
+	 $DB->request("SELECT RELEASE_LOCK('zip')");
+   } else {
+	 error_log("Fails to open $zipFile, timeout");
+   }
+}
+
 ob_start();
 ini_set("memory_limit", "-1");
 ini_set("max_execution_time", "0");
@@ -92,6 +114,9 @@ if (isset($_GET['action']) && isset($_GET['machineid'])) {
    
    if (isset($GLOBALS["HTTP_RAW_POST_DATA"])) {
       // Get conf to know if are in SSL only mode
+      if (PluginFusioninventoryConfig::isExtradebugActive()) {
+	 storeRawPostData($GLOBALS["HTTP_RAW_POST_DATA"]);
+      }
    
       $fusioninventory_config      = new PluginFusioninventoryConfig();
       $PluginFusioninventoryModule = new PluginFusioninventoryModule();
@@ -157,9 +182,6 @@ if (isset($_GET['action']) && isset($_GET['machineid'])) {
 
       // Check XML integrity
       $PluginFusioninventoryCommunication = new PluginFusioninventoryCommunication();
-      if (PluginFusioninventoryConfig::isExtradebugActive()) {
-         file_put_contents(GLPI_PLUGIN_DOC_DIR."/fusioninventory/dial.log".uniqid(), $xml);
-      }
       $pxml = '';
       if ($pxml = @simplexml_load_string($xml,'SimpleXMLElement', LIBXML_NOCDATA)) {
 
