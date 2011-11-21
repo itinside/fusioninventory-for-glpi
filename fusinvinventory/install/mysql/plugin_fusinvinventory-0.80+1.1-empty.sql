@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS `glpi_plugin_fusinvinventory_criterias`;
 CREATE TABLE `glpi_plugin_fusinvinventory_criterias` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `comment` text COLLATE utf8_unicode_ci,
+  `comment` text COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -12,11 +12,11 @@ CREATE TABLE `glpi_plugin_fusinvinventory_criterias` (
 DROP TABLE IF EXISTS `glpi_plugin_fusinvinventory_libserialization`;
 
 CREATE TABLE `glpi_plugin_fusinvinventory_libserialization` (
-  `internal_id` varchar(255) NOT NULL,
+  `internal_id` varchar(255) NOT NULL DEFAULT '',
   `computers_id` int(50) DEFAULT NULL,
-  `serialized_sections1` longtext,
-  `serialized_sections2` longtext,
-  `serialized_sections3` longtext,
+  `serialized_sections1` longtext DEFAULT NULL,
+  `serialized_sections2` longtext DEFAULT NULL,
+  `serialized_sections3` longtext DEFAULT NULL,
   `hash` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `last_fusioninventory_update` datetime DEFAULT NULL,
   PRIMARY KEY (`internal_id`),
@@ -32,7 +32,8 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvinventory_blacklists` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `plugin_fusioninventory_criterium_id` int(11) NOT NULL DEFAULT '0',
   `value` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `plugin_fusioninventory_criterium_id` (`plugin_fusioninventory_criterium_id`),
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -40,12 +41,12 @@ DROP TABLE IF EXISTS `glpi_plugin_fusinvinventory_antivirus`;
 
 CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvinventory_antivirus` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `computers_id` int(11) NOT NULL default '0',
+  `computers_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(255) DEFAULT NULL,
-  `manufacturers_id` int(11) NOT NULL default '0',
+  `manufacturers_id` int(11) NOT NULL DEFAULT '0',
   `version` varchar(255) DEFAULT NULL,
-  `is_active` tinyint(1) NOT NULL default '0',
-  `uptodate` tinyint(1) NOT NULL default '0',
+  `is_active` tinyint(1) NOT NULL DEFAULT '0',
+  `uptodate` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name` (`name`),
   KEY `version` (`version`),
@@ -54,15 +55,14 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvinventory_antivirus` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
-
 DROP TABLE IF EXISTS `glpi_plugin_fusinvinventory_computers`;
 
 CREATE TABLE IF NOT EXISTS `glpi_plugin_fusinvinventory_computers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `computers_id` int(11) NOT NULL default '0',
+  `computers_id` int(11) NOT NULL DEFAULT '0',
   `bios_date` datetime DEFAULT NULL,
   `bios_version` varchar(255) DEFAULT NULL,
-  `bios_manufacturers_id` int(11) NOT NULL default '0',
+  `bios_manufacturers_id` int(11) NOT NULL DEFAULT '0',
   `operatingsystem_installationdate` datetime DEFAULT NULL,
   `winowner` varchar(255) DEFAULT NULL,
   `wincompany` varchar(255) DEFAULT NULL,
@@ -128,7 +128,22 @@ INSERT INTO `glpi_plugin_fusinvinventory_blacklists` (`id`, `plugin_fusioninvent
 (41, 5, 'Product Name'),
 (42, 5, 'System Name'),
 (43, 2, 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF'),
-(44, 10, 'System manufacturer');
+(44, 10, 'System manufacturer'),
+
+(45, 2, '03000200-0400-0500-0006-000700080009'),
+(46, 2, '6AB5B300-538D-1014-9FB5-B0684D007B53'),
+(47, 2, '01010101-0101-0101-0101-010101010101'),
+(48, 3, '20:41:53:59:4e:ff'),
+(49, 3, '02:00:4e:43:50:49'),
+(50, 3, 'e2:e6:16:20:0a:35'),
+(51, 3, 'd2:0a:2d:a0:04:be'),
+(52, 3, '00:a0:c6:00:00:00'),
+(53, 3, 'd2:6b:25:2f:2c:e7'),
+(54, 3, '33:50:6f:45:30:30'),
+(55, 3, '0a:00:27:00:00:00'),
+(56, 3, '00:50:56:C0:00:01'),
+(57, 3, '00:50:56:C0:00:08'),
+(58, 1, 'MB-1234567890');
 
 INSERT INTO `glpi_displaypreferences` (`itemtype`, `num`, `rank`, `users_id`) VALUES
 ('PluginFusinvinventoryBlacklist', 2, 1, 0);
