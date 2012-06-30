@@ -94,10 +94,12 @@ if (isset($_GET['action']) && isset($_GET['machineid'])) {
    $pta            = new PluginFusioninventoryAgent();
    
    // ***** For debug only ***** //
-   //$GLOBALS["HTTP_RAW_POST_DATA"] = gzcompress('');
+   //$http_raw_post_data = gzcompress('');
    // ********** End ********** //
    
-   if (isset($GLOBALS["HTTP_RAW_POST_DATA"])) {
+   $http_raw_post_data = file_get_contents('php://input');
+
+   if (isset($http_raw_post_data)) {
       // Get conf to know if are in SSL only mode
    
       $fusioninventory_config      = new PluginFusioninventoryConfig();
@@ -127,20 +129,27 @@ if (isset($_GET['action']) && isset($_GET['machineid'])) {
                doHook("post_init");
             }
       }
-      
       // Get compression of XML
       $xml = '';
       $PluginFusioninventoryTaskjob = new PluginFusioninventoryTaskjob();
       $PluginFusioninventoryTaskjob->disableDebug();
-      $xml = gzuncompress($GLOBALS["HTTP_RAW_POST_DATA"]);
       $PluginFusioninventoryTaskjob->reenableusemode();
-      $compressmode = 'none';
-      if ($xml) {
+      if (strpos($http_raw_post_data, "<?xml") === 0) {
+         $xml = $http_raw_post_data;
+         $compressmode = 'none';
+      } else if ($xml = gzuncompress($http_raw_post_data)) {
          $compressmode = "gzcompress";
-      } else if ($xml = $communication->gzdecode($GLOBALS["HTTP_RAW_POST_DATA"])) {
+      } else if ($xml = $communication->gzdecode($http_raw_post_data)) {
          // ** If agent use gzip
          $compressmode = "gzencode";
-      } else if ($xml = gzinflate (substr($GLOBALS["HTTP_RAW_POST_DATA"], 2))) {
+      } else if ($xml = gzinflate ("\x1f\x8b\x08\x00\x00\x00\x00\x00".$http_raw_post_data)) {
+         // ** OCS agent 2.0 Compatibility, but return in gzcompress
+         $compressmode = "gzdeflate";
+         if (strstr($xml, "<QUERY>PROLOG</QUERY>")
+                 AND !strstr($xml, "<TOKEN>")) {
+            $compressmode = "gzcompress";
+         }
+      } else if ($xml = gzinflate (substr($http_raw_post_data, 2))) {
          // ** OCS agent 2.0 Compatibility, but return in gzcompress
          $compressmode = "gzdeflate";
          if (strstr($xml, "<QUERY>PROLOG</QUERY>")
@@ -148,7 +157,17 @@ if (isset($_GET['action']) && isset($_GET['machineid'])) {
             $compressmode = "gzcompress";
          }         
       } else {
-         $xml = $GLOBALS["HTTP_RAW_POST_DATA"];
+         $f = tempnam(GLPI_PLUGIN_DOC_DIR, 'gz_fix');
+         file_put_contents($f, "\x1f\x8b\x08\x00\x00\x00\x00\x00".$http_raw_post_data);
+         $xml = file_get_contents('compress.zlib://'.$f);
+
+         unlink($f);
+
+         if (strpos($xml, "<?xml") === 0) {
+            $compressmode = "gzcompress";
+         } else {
+            $xml = '';
+         }
       }
       
       $ssl = $fusioninventory_config->getValue($fusioninventoryModule_id, 'ssl_only');
@@ -200,7 +219,7 @@ if (isset($_GET['action']) && isset($_GET['machineid'])) {
             exit();
          }
       }
-      
+
       $ob_content = ob_get_contents();
       if (isset($ob_content)
               AND !empty($ob_content)) {
