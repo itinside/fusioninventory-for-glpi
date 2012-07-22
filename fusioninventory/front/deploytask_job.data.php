@@ -49,7 +49,7 @@ Html::header_nocache();
 
 if(!isset($_GET['tasks_id'])) exit;
 
-$taskjob = new PluginFusinvdeployTaskjob;
+$taskjob = new PluginFusioninventoryDeployTaskjob;
 $res = $taskjob->getAllDatas($_REQUEST);
 
 echo $res;

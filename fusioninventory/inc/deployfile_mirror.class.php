@@ -44,7 +44,7 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-class PluginFusinvdeployFile_Mirror extends CommonDBTM {
+class PluginFusioninventoryDeployFile_Mirror extends CommonDBTM {
 
    static function cleanForFile($files_id) {
       global $DB;

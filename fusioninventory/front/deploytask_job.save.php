@@ -50,7 +50,7 @@ Html::header_nocache();
 if(!isset($_GET['tasks_id'])) exit;
 if($_REQUEST['tasks'] == '') $_REQUEST['tasks'] = json_encode(array());
 
-$taskjob = new PluginFusinvdeployTaskjob;
+$taskjob = new PluginFusioninventoryDeployTaskjob;
 $res = $taskjob->saveDatas($_REQUEST);
 
 echo $res;

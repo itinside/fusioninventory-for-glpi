@@ -47,7 +47,7 @@ Session::checkLoginUser();
 header("Content-Type: text/html; charset=UTF-8");
 Html::header_nocache();
 
-$PluginFusinvdeployFile = new PluginFusinvdeployFile();
-$PluginFusinvdeployFile->uploadFile();
+$PluginFusioninventoryDeployFile = new PluginFusinvdeployFile();
+$PluginFusioninventoryDeployFile->uploadFile();
 
 ?>

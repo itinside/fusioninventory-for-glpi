@@ -59,10 +59,10 @@ foreach($_POST as $POST_key => $POST_value) {
    $_POST[$new_key] = $POST_value;
 }
 
-$render   = PluginFusinvdeployOrder::getRender($render);
-$order_id = PluginFusinvdeployOrder::getIdForPackage($package_id,$render);
+$render   = PluginFusioninventoryDeployOrder::getRender($render);
+$order_id = PluginFusioninventoryDeployOrder::getIdForPackage($package_id,$render);
 
-$check = new PluginFusinvdeployCheck;
+$check = new PluginFusioninventoryDeployCheck;
 
 if (($_POST['type'] == 'fileSizeGreater'
       || $_POST['type'] == 'fileSizelower'

@@ -44,7 +44,7 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-class PluginFusinvdeployGroup extends CommonDBTM {
+class PluginFusioninventoryDeployGroup extends CommonDBTM {
 
    protected $static_group_types = array('Computer');
 
@@ -75,7 +75,7 @@ class PluginFusinvdeployGroup extends CommonDBTM {
       echo "<table class='tab_cadre_navigation'><tr><td>";
 
       self::title();
-      Search::show('PluginFusinvdeployGroup');
+      Search::show('PluginFusioninventoryDeployGroup');
 
       echo "</td></tr></table>";
       echo "</center>";
@@ -153,7 +153,7 @@ class PluginFusinvdeployGroup extends CommonDBTM {
    }
 
    function getSearchURL($full=true) {
-      return Toolbox::getItemTypeSearchURL('PluginFusinvdeployTask', $full);
+      return Toolbox::getItemTypeSearchURL('PluginFusioninventoryDeployTask', $full);
    }
 
    function showForm($ID, $options = array()) {
@@ -373,7 +373,7 @@ class PluginFusinvdeployGroup extends CommonDBTM {
       $fields = array();
 
       //get datas
-      $dynamic_group = new PluginFusinvdeployGroup_Dynamicdata;
+      $dynamic_group = new PluginFusioninventoryDeployGroup_Dynamicdata;
       $query = "SELECT *
          FROM glpi_plugin_fusioninventory_deploygroups_dynamicdatas
          WHERE groups_id = '$groupID'";

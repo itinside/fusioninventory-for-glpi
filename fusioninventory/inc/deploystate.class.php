@@ -44,7 +44,7 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-class PluginFusinvdeployState extends CommonDBTM {
+class PluginFusioninventoryDeployState extends CommonDBTM {
 
    const RECEIVED       = 'received';
    const DOWNLOADING    = 'downloading';
@@ -276,7 +276,7 @@ class PluginFusinvdeployState extends CommonDBTM {
                      $res[$i]['children'][$j]['taskjobs_id'] = $row_jobs['id'];
 
                      break;
-                  case 'PluginFusinvdeployGroup':
+                  case 'PluginFusioninventoryDeployGroup':
                      $res[$i]['children'][$j]['icon'] = GLPI_ROOT."/plugins/fusinvdeploy/pics/ext/group.png";
                      $res[$i]['children'][$j]['progress'] = self::getTaskPercent($row_jobs['id'], 'group');
 
@@ -395,7 +395,7 @@ class PluginFusinvdeployState extends CommonDBTM {
                         $res[$i]['taskjobs_id'] = $row_jobs['id'];
 
                         break;
-                     case 'PluginFusinvdeployGroup':
+                     case 'PluginFusioninventoryDeployGroup':
                         $res[$i]['icon'] = GLPI_ROOT."/plugins/fusinvdeploy/pics/ext/group.png";
                         $res[$i]['progress'] = self::getTaskPercent($row_jobs['id'], 'group');
 
@@ -404,7 +404,7 @@ class PluginFusinvdeployState extends CommonDBTM {
                }
             }
             break;
-         case 'PluginFusinvdeployGroup':
+         case 'PluginFusioninventoryDeployGroup':
             //get all status for this job
                $query_status = "SELECT id, items_id, state
                   FROM (

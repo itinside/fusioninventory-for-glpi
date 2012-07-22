@@ -44,7 +44,7 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-class PluginFusinvdeployConfig extends CommonDBTM {
+class PluginFusioninventoryDeployConfig extends CommonDBTM {
 
    function initConfigModule() {
       global $DB;

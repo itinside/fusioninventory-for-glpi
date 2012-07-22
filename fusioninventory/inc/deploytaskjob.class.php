@@ -43,7 +43,7 @@
 /* TODO: This class should inherit the PluginFusioninventoryTaskjob
  */
 
-class PluginFusinvdeployTaskjob extends CommonDBTM {
+class PluginFusioninventoryDeployTaskjob extends CommonDBTM {
 
    function canCreate() {
       return true;
@@ -85,7 +85,7 @@ class PluginFusinvdeployTaskjob extends CommonDBTM {
                $tmp = array_keys($action);
                $action_type = $tmp[0];
 
-               $json['tasks'][$i]['package_id'] = $package['PluginFusinvdeployPackage'];
+               $json['tasks'][$i]['package_id'] = $package['PluginFusioninventoryDeployPackage'];
 
                $json['tasks'][$i]['method'] = $task['method'];
                $json['tasks'][$i]['comment'] = $task['comment'];
@@ -136,7 +136,7 @@ class PluginFusinvdeployTaskjob extends CommonDBTM {
          //encode action and definition
          //$action = exportArrayToDB(array(array($task['action_type'] => $task['action_selection'])));
          $action = exportArrayToDB($task['action']);
-         $definition = exportArrayToDB(array(array('PluginFusinvdeployPackage' => $task['package_id'])));
+         $definition = exportArrayToDB(array(array('PluginFusioninventoryDeployPackage' => $task['package_id'])));
 
          $sql_tasks[] = "INSERT INTO ".$this->getTable()."
          (
@@ -171,7 +171,7 @@ class PluginFusinvdeployTaskjob extends CommonDBTM {
          array(
             'name' => _('Groups of computers'),
 
-            'value' => 'PluginFusinvdeployGroup',
+            'value' => 'PluginFusioninventoryDeployGroup',
          )
       );
    }
@@ -222,8 +222,8 @@ class PluginFusinvdeployTaskjob extends CommonDBTM {
                   }
                   $res = json_encode($res);
                   break;
-               case 'PluginFusinvdeployGroup':
-                  $res = PluginFusinvdeployGroup::getAllDatas('action_selections');
+               case 'PluginFusioninventoryDeployGroup':
+                  $res = PluginFusioninventoryDeployGroup::getAllDatas('action_selections');
                   break;
             }
 

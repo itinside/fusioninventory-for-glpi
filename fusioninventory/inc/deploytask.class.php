@@ -46,7 +46,7 @@ if (!defined('GLPI_ROOT')) {
 
 include_once(GLPI_ROOT . "/plugins/fusioninventory/inc/task.class.php");
 
-class PluginFusinvdeployTask extends PluginFusioninventoryTask {
+class PluginFusioninventoryDeployTask extends PluginFusioninventoryTask {
 
    static function getTypeName($nb=0) {
 
@@ -96,7 +96,7 @@ class PluginFusinvdeployTask extends PluginFusioninventoryTask {
 
    function showList() {
       self::title();
-      Search::show('PluginFusinvdeployTask');
+      Search::show('PluginFusioninventoryDeployTask');
    }
 
    function title() {

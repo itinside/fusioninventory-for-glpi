@@ -53,7 +53,7 @@ Html::header(_('Deployment tasks'),$_SERVER["PHP_SELF"],"plugins",
 
 PluginFusioninventoryMenu::displayMenu("mini");
 
-$task = new PluginFusinvdeployTask();
+$task = new PluginFusioninventoryDeployTask();
 $task->showList();
 
 Html::footer();

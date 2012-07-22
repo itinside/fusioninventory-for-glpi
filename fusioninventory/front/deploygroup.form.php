@@ -51,11 +51,11 @@ if (!isset($_REQUEST["id"])) {
    $_REQUEST["id"] = "";
 }
 
-$group = new PluginFusinvdeployGroup();
+$group = new PluginFusioninventoryDeployGroup();
 
 if (isset($_REQUEST['type'])) {
-   if ($_REQUEST['type'] == 'static') $group_item = new PluginFusinvdeployGroup_Staticdata();
-   if ($_REQUEST['type'] == 'dynamic') $group_item = new PluginFusinvdeployGroup_Dynamicdata();
+   if ($_REQUEST['type'] == 'static') $group_item = new PluginFusioninventoryDeployGroup_Staticdata();
+   if ($_REQUEST['type'] == 'dynamic') $group_item = new PluginFusioninventoryDeployGroup_Dynamicdata();
 }
 
 if (isset($_POST["add"])) {

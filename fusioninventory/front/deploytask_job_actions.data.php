@@ -47,7 +47,7 @@ Session::checkLoginUser();
 header("Content-Type: text/html; charset=UTF-8");
 Html::header_nocache();
 
-$res = PluginFusinvdeployTaskjob::getActions($_REQUEST);
+$res = PluginFusioninventoryDeployTaskjob::getActions($_REQUEST);
 
 echo $res;
 

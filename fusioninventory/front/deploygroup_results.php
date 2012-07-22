@@ -48,6 +48,6 @@ header("Content-Type: text/html; charset=UTF-8");
 Html::header_nocache();
 
 $_SESSION['groupSearchResults'] = $_REQUEST;
-PluginFusinvdeployGroup::showSearchResults($_REQUEST);
+PluginFusioninventoryDeployGroup::showSearchResults($_REQUEST);
 
 ?>

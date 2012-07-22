@@ -59,8 +59,8 @@ if (!isset($_GET['sort'])) {
 }
 $_GET['target']="task.php";
 
-Search::show('PluginFusinvdeployTaskjob');*/
-PluginFusinvdeployState::showTasks();
+Search::show('PluginFusioninventoryDeployTaskjob');*/
+PluginFusioninventoryDeployState::showTasks();
 
 Html::footer();
 

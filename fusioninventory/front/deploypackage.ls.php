@@ -44,7 +44,7 @@ define('GLPI_ROOT', '../../..');
 include (GLPI_ROOT."/inc/includes.php");
 checkLoginUser();
 
-$package = new PluginFusinvdeployPackage();
+$package = new PluginFusioninventoryDeployPackage();
 
 //print $package->getAllDatas();
 

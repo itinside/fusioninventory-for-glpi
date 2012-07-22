@@ -44,7 +44,7 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-class PluginFusinvdeployAction_Command extends CommonDBTM {
+class PluginFusioninventoryDeployAction_Command extends CommonDBTM {
 
    static function getTypeName($nb=0) {
 
@@ -53,7 +53,7 @@ class PluginFusinvdeployAction_Command extends CommonDBTM {
    }
 
    function cleanDBonPurge() {
-      $temp = new PluginFusinvdeployAction_Commandstatus();
+      $temp = new PluginFusioninventoryDeployAction_Commandstatus();
       $temp->deleteByCriteria(array('plugin_fusioninventory_deploycommands_id' => $this->fields['id']));
    }
 
@@ -67,8 +67,8 @@ class PluginFusinvdeployAction_Command extends CommonDBTM {
          if (!empty($command['exec']))
             $tmp    = array('exec' => $command['exec']);
          else continue;
-         $linked = array('PluginFusinvdeployAction_Commandstatus'      => 'retChecks',
-                         'PluginFusinvdeployAction_Commandenvvariable' => 'envs');
+         $linked = array('PluginFusioninventoryDeployAction_Commandstatus'      => 'retChecks',
+                         'PluginFusioninventoryDeployAction_Commandenvvariable' => 'envs');
          foreach ($linked as $class => $value) {
             $result = call_user_func(array($class,'getForCommand'), $action_id);
             if (!empty($result)) {

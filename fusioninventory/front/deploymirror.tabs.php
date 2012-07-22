@@ -51,7 +51,7 @@ if(!isset($_POST["id"])) {
    exit();
 }
 
-$mirror          = new PluginFusinvdeployMirror();
+$mirror          = new PluginFusioninventoryDeployMirror();
 
 if ($mirror->can($_POST['id'],'r')) {
    switch($_POST['glpi_tab']) {

@@ -47,8 +47,8 @@ header("Content-Type: text/html; charset=UTF-8");
 Html::header_nocache();
 
 if ($_REQUEST['parent_type'] == '')
-   echo PluginFusinvdeployState::getTaskjobsAllDatasTree($_REQUEST);
+   echo PluginFusioninventoryDeployState::getTaskjobsAllDatasTree($_REQUEST);
 else
-   echo PluginFusinvdeployState::getTaskjobsDatasTreenode($_REQUEST);
+   echo PluginFusioninventoryDeployState::getTaskjobsDatasTreenode($_REQUEST);
 
 ?>

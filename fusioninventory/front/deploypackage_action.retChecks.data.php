@@ -54,7 +54,7 @@ if(isset($_GET['CommandId'])){
    exit;
 }
 
-$render_type   = PluginFusinvdeployOrder::getRender($render);
+$render_type   = PluginFusioninventoryDeployOrder::getRender($render);
 
 $sql = " SELECT plugin_fusioninventory_deploycommands_id as {$render}CommandId,
                 id,

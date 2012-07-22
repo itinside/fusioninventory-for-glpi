@@ -47,7 +47,7 @@ if (!defined('GLPI_ROOT')) {
 /**
  * Class to parse agent's requests and build responses
  **/
-class PluginFusinvdeployJob {
+class PluginFusioninventoryDeployJob {
 
    static function get($device_id) {
       global $DB;
@@ -57,7 +57,7 @@ class PluginFusinvdeployJob {
       $taskjobstate = new PluginFusioninventoryTaskjobstate();
 
       //Get the agent ID by his deviceid
-      if ($agents_id = PluginFusinvdeployJob::getAgentByDeviceID($device_id)) {
+      if ($agents_id = PluginFusioninventoryDeployJob::getAgentByDeviceID($device_id)) {
 
          //Get tasks associated with the agent
          $task_list = $taskjobstate->getTaskjobsAgent($agents_id);
@@ -81,17 +81,17 @@ class PluginFusinvdeployJob {
                      break;
 
                   //Install a package
-                  case 'PluginFusinvdeployDeployinstall':
-                     $ordertype = PluginFusinvdeployOrder::INSTALLATION_ORDER;
+                  case 'PluginFusioninventoryDeployDeployinstall':
+                     $ordertype = PluginFusioninventoryDeployOrder::INSTALLATION_ORDER;
                      break;
 
                   //Uninstall a package
-                  case 'PluginFusinvdeployDeployuninstall':
-                     $ordertype = PluginFusinvdeployOrder::UNINSTALLATION_ORDER;
+                  case 'PluginFusioninventoryDeployDeployuninstall':
+                     $ordertype = PluginFusioninventoryDeployOrder::UNINSTALLATION_ORDER;
                      break;
                }
                if ($ordertype != -1) {
-                  $orderDetails = PluginFusinvdeployOrder::getOrderDetails($status, $ordertype);
+                  $orderDetails = PluginFusioninventoryDeployOrder::getOrderDetails($status, $ordertype);
                   if (count($orderDetails) == 0) return false;
                   $response[] = $orderDetails;
                }
@@ -119,7 +119,7 @@ class PluginFusinvdeployJob {
       }
 
       //Get the agent ID by his deviceid
-      $agents_id = PluginFusinvdeployJob::getAgentByDeviceID($p['machineid']);
+      $agents_id = PluginFusioninventoryDeployJob::getAgentByDeviceID($p['machineid']);
       if (!$agents_id) {
         die;
       }

@@ -47,7 +47,7 @@ if(!defined('GLPI_ROOT')) {
 
 require_once(GLPI_ROOT."/plugins/fusioninventory/inc/communication.class.php");
 
-class PluginFusinvdeployDeployCommon extends PluginFusioninventoryCommunication {
+class PluginFusioninventoryDeployDeployCommon extends PluginFusioninventoryCommunication {
 
    // Get all devices and put in taskjobstate each task for each device for each agent
    function prepareRun($taskjobs_id) {
@@ -97,8 +97,8 @@ class PluginFusinvdeployDeployCommon extends PluginFusioninventoryCommunication 
                $computers = array_unique(array_merge($computers_a_1, $computers_a_2));
 
                break;
-            case 'PluginFusinvdeployGroup':
-               $group = new PluginFusinvdeployGroup;
+            case 'PluginFusioninventoryDeployGroup':
+               $group = new PluginFusioninventoryDeployGroup;
                $group->getFromDB($items_id);
 
                switch ($group->getField('type')) {
@@ -141,17 +141,17 @@ class PluginFusinvdeployDeployCommon extends PluginFusioninventoryCommunication 
       $c_input['plugin_fusioninventory_taskjobs_id'] = $taskjobs_id;
       $c_input['state']                              = 0;
       $c_input['plugin_fusioninventory_agents_id']   = 0;
-      $package = new PluginFusinvdeployPackage();
+      $package = new PluginFusioninventoryDeployPackage();
 
       foreach($computers as $computer_id) {
          //Unique Id match taskjobstatuses for an agent(computer)
          $uniqid= uniqid();
 
          foreach($definitions as $definition) {
-            $package->getFromDB($definition['PluginFusinvdeployPackage']);
+            $package->getFromDB($definition['PluginFusioninventoryDeployPackage']);
 
             $c_input['state'] = 0;
-            $c_input['itemtype'] = 'PluginFusinvdeployPackage';
+            $c_input['itemtype'] = 'PluginFusioninventoryDeployPackage';
             $c_input['items_id'] = $package->fields['id'];
             $c_input['date'] = date("Y-m-d H:i:s");
             $c_input['uniqid'] = $uniqid;

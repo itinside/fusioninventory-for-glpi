@@ -44,7 +44,7 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-class PluginFusinvdeployStaticmisc {
+class PluginFusioninventoryDeployStaticmisc {
 
    const DEPLOYMETHOD_INSTALL   = 'deployinstall';
    const DEPLOYMETHOD_UNINSTALL = 'deployuninstall';
@@ -67,7 +67,7 @@ class PluginFusinvdeployStaticmisc {
    }
 
    static function getItemtypeActions() {
-      return array('PluginFusinvdeployPackage');
+      return array('PluginFusioninventoryDeployPackage');
    }
    /*
    # Actions with itemtype autorized
@@ -82,13 +82,13 @@ class PluginFusinvdeployStaticmisc {
 
    static function getDefinitionType() {
       return array(0 => Dropdown::EMPTY_VALUE,
-                   'PluginFusinvdeployPackage' => _('Package'));
+                   'PluginFusioninventoryDeployPackage' => _('Package'));
 
    }
 
    static function getActionType() {
       return array(0 => Dropdown::EMPTY_VALUE,
-                   'PluginFusinvdeployGroup' => _('Group of computers'),
+                   'PluginFusioninventoryDeployGroup' => _('Group of computers'),
 
                    'Computer' => _('Computers'),
 
@@ -118,7 +118,7 @@ class PluginFusinvdeployStaticmisc {
       $options['entity']      = $_SESSION['glpiactive_entity'];
       $options['entity_sons'] = 1;
       $options['name']        = 'definitionselectiontoadd';
-      return Dropdown::show("PluginFusinvdeployPackage", $options);
+      return Dropdown::show("PluginFusioninventoryDeployPackage", $options);
    }
 
   /* static function getDeployActions() {
@@ -134,23 +134,23 @@ class PluginFusinvdeployStaticmisc {
       $options['entity']      = $_SESSION['glpiactive_entity'];
       $options['entity_sons'] = 1;
       $options['name']        = 'actionselectiontoadd';
-      return Dropdown::show("PluginFusinvdeployGroup", $options);
+      return Dropdown::show("PluginFusioninventoryDeployGroup", $options);
 
    }
 
-   static function task_definitionselection_PluginFusinvdeployPackage_deployinstall() {
+   static function task_definitionselection_PluginFusioninventoryDeployPackage_deployinstall() {
       return self::getDeploySelections();
    }
 
-   static function task_definitionselection_PluginFusinvdeployPackage_deployuninstall() {
+   static function task_definitionselection_PluginFusioninventoryDeployPackage_deployuninstall() {
       return self::getDeploySelections();
    }
 
-   static function task_definitionselection_PluginFusinvdeployGroup_deployinstall() {
+   static function task_definitionselection_PluginFusioninventoryDeployGroup_deployinstall() {
       return self::getDeployActions();
    }
 
-   static function task_definitionselection_PluginFusinvdeployGroup_deployuninstall() {
+   static function task_definitionselection_PluginFusioninventoryDeployGroup_deployuninstall() {
       return self::getDeployActions();
    }
 

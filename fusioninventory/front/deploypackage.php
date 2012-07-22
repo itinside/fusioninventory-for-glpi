@@ -52,7 +52,7 @@ Html::header(_('FusionInventory'),$_SERVER["PHP_SELF"],"plugins",
 
 PluginFusioninventoryMenu::displayMenu("mini");
 
-$package = new PluginFusinvdeployPackage();
+$package = new PluginFusioninventoryDeployPackage();
 $package->showList();
 
 Html::footer();

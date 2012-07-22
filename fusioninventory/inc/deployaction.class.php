@@ -44,7 +44,7 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-class PluginFusinvdeployAction extends CommonDBTM {
+class PluginFusioninventoryDeployAction extends CommonDBTM {
 
    static function getTypeName($nb=0) {
 
@@ -86,8 +86,8 @@ class PluginFusinvdeployAction extends CommonDBTM {
       $package_id = $params['package_id'];
       $render = $params['render'];
 
-      $render_type   = PluginFusinvdeployOrder::getRender($render);
-      $order_id      = PluginFusinvdeployOrder::getIdForPackage($package_id,$render_type);
+      $render_type   = PluginFusioninventoryDeployOrder::getRender($render);
+      $order_id      = PluginFusioninventoryDeployOrder::getIdForPackage($package_id,$render_type);
 
       $sql = " SELECT id as {$render}id,
                       itemtype as {$render}itemtype,
@@ -106,13 +106,13 @@ class PluginFusinvdeployAction extends CommonDBTM {
          $action   = new $itemtype();
          $action->getFromDB($row[$render.'items_id']);
 
-         if($action instanceof PluginFusinvdeployAction_Command) {
+         if($action instanceof PluginFusioninventoryDeployAction_Command) {
             $row[$render.'value'] = "<b>"._('Value')." : </b> ";
             $row[$render.'value'].= $action->getField('exec');
 
             $row[$render.'exec'] = $action->getField('exec');
 
-         } else if($action instanceof PluginFusinvdeployAction_Move) {
+         } else if($action instanceof PluginFusioninventoryDeployAction_Move) {
             $row[$render.'value'] = "<b>"._('From')." : </b> ";
             $row[$render.'value'].= $action->getField('from');
             $row[$render.'value'].= " <b>"._('To')." : </b> ";
@@ -121,7 +121,7 @@ class PluginFusinvdeployAction extends CommonDBTM {
             $row[$render.'from'] = $action->getField('from');
             $row[$render.'to']   = $action->getField('to');
 
-         } else if($action instanceof PluginFusinvdeployAction_Copy) {
+         } else if($action instanceof PluginFusioninventoryDeployAction_Copy) {
             $row[$render.'value'] = "<b>"._('From')." : </b> ";
             $row[$render.'value'].= $action->getField('from');
             $row[$render.'value'].= " <b>"._('To')." : </b> ";
@@ -130,17 +130,17 @@ class PluginFusinvdeployAction extends CommonDBTM {
             $row[$render.'from'] = $action->getField('from');
             $row[$render.'to']   = $action->getField('to');
 
-         }  else if($action instanceof PluginFusinvdeployAction_Delete) {
+         }  else if($action instanceof PluginFusioninventoryDeployAction_Delete) {
             $row[$render.'value'] = "<b>"._('Value')." : </b> ";
             $row[$render.'value'].= $action->getField('path');
             $row[$render.'path']  = $action->getField('path');
 
-         }  else if($action instanceof PluginFusinvdeployAction_Mkdir) {
+         }  else if($action instanceof PluginFusioninventoryDeployAction_Mkdir) {
             $row[$render.'value'] = "<b>"._('Name')." : </b> ";
             $row[$render.'value'].= $action->getField('path');
             $row[$render.'path']  = $action->getField('path');
 
-         }  else if($action instanceof PluginFusinvdeployAction_Message) {
+         }  else if($action instanceof PluginFusioninventoryDeployAction_Message) {
             $row[$render.'value'] = "<b>"._('Title').
 
                " : </b> ";
@@ -191,13 +191,13 @@ class PluginFusinvdeployAction extends CommonDBTM {
 
       $row[$render.'ranking'] = $action->getField('ranking');
 
-      if($action instanceof PluginFusinvdeployAction_Command) {
+      if($action instanceof PluginFusioninventoryDeployAction_Command) {
          $row[$render.'value'] = "<b>"._('Value')." : </b> ";
          $row[$render.'value'].= $action->getField('exec');
 
          $row[$render.'exec'] = $action->getField('exec');
 
-      } else if($action instanceof PluginFusinvdeployAction_Move) {
+      } else if($action instanceof PluginFusioninventoryDeployAction_Move) {
          $row[$render.'value'] = "<b>"._('From')." : </b> ";
          $row[$render.'value'].= $action->getField('from');
          $row[$render.'value'].= " <b>"._('To')." : </b> ";
@@ -206,7 +206,7 @@ class PluginFusinvdeployAction extends CommonDBTM {
          $row[$render.'from'] = $action->getField('from');
          $row[$render.'to']   = $action->getField('to');
 
-      } else if($action instanceof PluginFusinvdeployAction_Copy) {
+      } else if($action instanceof PluginFusioninventoryDeployAction_Copy) {
          $row[$render.'value'] = "<b>"._('From')." : </b> ";
          $row[$render.'value'].= $action->getField('from');
          $row[$render.'value'].= " <b>"._('To')." : </b> ";
@@ -215,17 +215,17 @@ class PluginFusinvdeployAction extends CommonDBTM {
          $row[$render.'from'] = $action->getField('from');
          $row[$render.'to']   = $action->getField('to');
 
-      }  else if($action instanceof PluginFusinvdeployAction_Delete) {
+      }  else if($action instanceof PluginFusioninventoryDeployAction_Delete) {
          $row[$render.'value'] = "<b>"._('Value')." : </b> ";
          $row[$render.'value'].= $action->getField('path');
          $row[$render.'path']  = $action->getField('path');
 
-      }  else if($action instanceof PluginFusinvdeployAction_Mkdir) {
+      }  else if($action instanceof PluginFusioninventoryDeployAction_Mkdir) {
          $row[$render.'value'] = "<b>"._('Name')." : </b> ";
          $row[$render.'value'].= $action->getField('path');
          $row[$render.'path']  = $action->getField('path');
 
-      }  else if($action instanceof PluginFusinvdeployAction_Message) {
+      }  else if($action instanceof PluginFusioninventoryDeployAction_Message) {
          $row[$render.'value'] = "<b>"._('Title').
 
             " : </b> ";
@@ -253,8 +253,8 @@ class PluginFusinvdeployAction extends CommonDBTM {
       $package_id = $params['package_id'];
       $render = $params['render'];
 
-      $render_type   = PluginFusinvdeployOrder::getRender($render);
-      $order_id = PluginFusinvdeployOrder::getIdForPackage($package_id,$render_type);
+      $render_type   = PluginFusioninventoryDeployOrder::getRender($render);
+      $order_id = PluginFusioninventoryDeployOrder::getIdForPackage($package_id,$render_type);
 
       foreach($params as $param_key => $param_value) {
          $new_key         = preg_replace('#^'.$render.'#','',$param_key);
@@ -264,24 +264,24 @@ class PluginFusinvdeployAction extends CommonDBTM {
       // Adding Sub-ACTION
       $itemtype = new $params['itemtype']();
 
-      if($itemtype instanceof PluginFusinvdeployAction_Command) {
+      if($itemtype instanceof PluginFusioninventoryDeployAction_Command) {
          $data = array( 'exec'   => $params['exec']);
 
-      } else if($itemtype instanceof PluginFusinvdeployAction_Move){
+      } else if($itemtype instanceof PluginFusioninventoryDeployAction_Move){
          $data = array( 'from'   => $params['from'],
                         'to'     => $params['to']);
 
-      } else if($itemtype instanceof PluginFusinvdeployAction_Copy){
+      } else if($itemtype instanceof PluginFusioninventoryDeployAction_Copy){
          $data = array( 'from'   => $params['from'],
                         'to'     => $params['to']);
 
-      } else if($itemtype instanceof PluginFusinvdeployAction_Delete) {
+      } else if($itemtype instanceof PluginFusioninventoryDeployAction_Delete) {
          $data = array( 'path'   => $params['path']);
 
-      } else if($itemtype instanceof PluginFusinvdeployAction_Mkdir) {
+      } else if($itemtype instanceof PluginFusioninventoryDeployAction_Mkdir) {
          $data = array( 'path'   => $params['path']);
 
-      } else if($itemtype instanceof PluginFusinvdeployAction_Message) {
+      } else if($itemtype instanceof PluginFusioninventoryDeployAction_Message) {
          $data = array( 'name'      => $params['messagename'],
                         'message'   => $params['messagevalue'],
                         'type'      => $params['messagetype']);
@@ -330,15 +330,15 @@ class PluginFusinvdeployAction extends CommonDBTM {
          $params[$new_key] = mysql_real_escape_string($param_value);
       }
 
-      $render_type   = PluginFusinvdeployOrder::getRender($render);
-      $order_id = PluginFusinvdeployOrder::getIdForPackage($package_id,$render_type);
+      $render_type   = PluginFusioninventoryDeployOrder::getRender($render);
+      $order_id = PluginFusioninventoryDeployOrder::getIdForPackage($package_id,$render_type);
 
 
       if (isset ($params["id"]) && !$params['id']) {
          $res = $this->createData($params);
       } else if (isset ($params["id"]) && $params['id']) {
 
-         $action = new PluginFusinvdeployAction();
+         $action = new PluginFusioninventoryDeployAction();
          $action->getFromDB($params['id']);
 
          $items_id = $action->getField('items_id');
@@ -348,24 +348,24 @@ class PluginFusinvdeployAction extends CommonDBTM {
             $itemtype = new $params['itemtype']();
             $itemtype->getFromDB($items_id);
 
-            if($itemtype instanceof PluginFusinvdeployAction_Command) {
+            if($itemtype instanceof PluginFusioninventoryDeployAction_Command) {
                $data = array( 'exec'   => $params['exec']);
 
-            } else if($itemtype instanceof PluginFusinvdeployAction_Move){
+            } else if($itemtype instanceof PluginFusioninventoryDeployAction_Move){
                $data = array( 'from'   => $params['from'],
                               'to'     => $params['to']);
 
-            } else if($itemtype instanceof PluginFusinvdeployAction_Copy){
+            } else if($itemtype instanceof PluginFusioninventoryDeployAction_Copy){
                $data = array( 'from'   => $params['from'],
                               'to'     => $params['to']);
 
-            } else if($itemtype instanceof PluginFusinvdeployAction_Delete) {
+            } else if($itemtype instanceof PluginFusioninventoryDeployAction_Delete) {
                $data = array( 'path'   => $params['path']);
 
-            } else if($itemtype instanceof PluginFusinvdeployAction_Mkdir) {
+            } else if($itemtype instanceof PluginFusioninventoryDeployAction_Mkdir) {
                $data = array( 'path'   => $params['path']);
 
-            } else if($itemtype instanceof PluginFusinvdeployAction_Message) {
+            } else if($itemtype instanceof PluginFusioninventoryDeployAction_Message) {
                $data = array( 'name'      => $params['messagename'],
                               'message'   => $params['messagevalue'],
                               'type'      => $params['messagetype']);
@@ -381,24 +381,24 @@ class PluginFusinvdeployAction extends CommonDBTM {
 
             $itemtype = new $params['itemtype']();
 
-            if($itemtype instanceof PluginFusinvdeployAction_Command) {
+            if($itemtype instanceof PluginFusioninventoryDeployAction_Command) {
                $data = array( 'exec'   => $params['exec']);
 
-            } else if($itemtype instanceof PluginFusinvdeployAction_Move){
+            } else if($itemtype instanceof PluginFusioninventoryDeployAction_Move){
                $data = array( 'from'   => $params['from'],
                               'to'     => $params['to']);
 
-            } else if($itemtype instanceof PluginFusinvdeployAction_Copy){
+            } else if($itemtype instanceof PluginFusioninventoryDeployAction_Copy){
                $data = array( 'from'   => $params['from'],
                               'to'     => $params['to']);
 
-            } else if($itemtype instanceof PluginFusinvdeployAction_Delete) {
+            } else if($itemtype instanceof PluginFusioninventoryDeployAction_Delete) {
                $data = array( 'path'   => $params['path']);
 
-            } else if($itemtype instanceof PluginFusinvdeployAction_Mkdir) {
+            } else if($itemtype instanceof PluginFusioninventoryDeployAction_Mkdir) {
                $data = array( 'path'   => $params['path']);
 
-            } else if($itemtype instanceof PluginFusinvdeployAction_Message) {
+            } else if($itemtype instanceof PluginFusioninventoryDeployAction_Message) {
                $data = array( 'name'      => $params['messagename'],
                               'message'   => $params['messagevalue'],
                               'type'      => $params['messagetype']);
@@ -430,8 +430,8 @@ class PluginFusinvdeployAction extends CommonDBTM {
       $render = $params['render'];
 
       //get order id
-      $render_type   = PluginFusinvdeployOrder::getRender($render);
-      $order_id = PluginFusinvdeployOrder::getIdForPackage($package_id,$render_type);
+      $render_type   = PluginFusioninventoryDeployOrder::getRender($render);
+      $order_id = PluginFusioninventoryDeployOrder::getIdForPackage($package_id,$render_type);
 
       //get rankings
       $action_moved = new $this;

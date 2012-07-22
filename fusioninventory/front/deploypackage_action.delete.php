@@ -58,7 +58,7 @@ foreach($_POST as $POST_key => $POST_value) {
    $_POST[$new_key] = $POST_value;
 }
 
-$action = new PluginFusinvdeployAction();
+$action = new PluginFusioninventoryDeployAction();
 
 if (isset ($_POST["id"]) && $_POST['id']) {
    $action->getFromDB($_POST["id"]);

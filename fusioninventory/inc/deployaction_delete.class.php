@@ -44,7 +44,7 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-class PluginFusinvdeployAction_Delete extends CommonDBTM {
+class PluginFusioninventoryDeployAction_Delete extends CommonDBTM {
 
    static function getTypeName($nb=0) {
 

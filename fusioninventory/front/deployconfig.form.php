@@ -50,7 +50,7 @@ Html::header(_('Features'), $_SERVER["PHP_SELF"],
              "plugins", "fusinvdeploy", "configuration");
 
 if (isset($_POST['plugin_fusioninventory_deployconfig_set'])) {
-   $pfConfig = new PluginFusinvdeployConfig();
+   $pfConfig = new PluginFusioninventoryDeployConfig();
    $pfConfig->putForm($_POST);
    Html::back();
 }

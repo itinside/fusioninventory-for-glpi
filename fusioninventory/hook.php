@@ -594,7 +594,7 @@ function plugin_fusioninventory_MassiveActionsDisplay($options=array()) {
              case 'plugin_fusioninventory_targetDeployTask' :
                echo "<br/>". _('Task').":&nbsp;";
                $rand = mt_rand();
-               Dropdown::show('PluginFusinvdeployTask', array(
+               Dropdown::show('PluginFusioninventoryDeployTask', array(
                      'name'      => "tasks_id",
                      'condition' => "is_active = 0",
                      'toupdate'  => array(
@@ -605,7 +605,7 @@ function plugin_fusioninventory_MassiveActionsDisplay($options=array()) {
                ));
 
                echo "<br/>"."&nbsp;"._('Package').":&nbsp;";
-               Dropdown::show('PluginFusinvdeployPackage', array(
+               Dropdown::show('PluginFusioninventoryDeployPackage', array(
                         'name'      => "packages_id"
                ));
 
@@ -613,7 +613,7 @@ function plugin_fusioninventory_MassiveActionsDisplay($options=array()) {
                echo "<input type='checkbox' name='separate_jobs' value='1'>";
                if ($options['itemtype'] == 'Computer') {
                      echo "&nbsp;"._('Create a job for each computer')."&nbsp;";
-               } else if ($options['itemtype'] == 'PluginFusinvdeployGroup') {
+               } else if ($options['itemtype'] == 'PluginFusioninventoryDeployGroup') {
                      echo "&nbsp;"._('Create a job for each group')."&nbsp;";
                }
                echo "</input>";
@@ -768,14 +768,14 @@ function plugin_fusioninventory_MassiveActionsProcess($data) {
          }
          break;
       case 'plugin_fusioninventory_targetDeployTask' :
-         $taskjob = new PluginFusinvdeployTaskjob;
+         $taskjob = new PluginFusioninventoryDeployTaskjob;
          $tasks = array();
 
          //get old datas
          $oldjobs = $taskjob->find("plugin_fusioninventory_deploytasks_id = '".$data['tasks_id']."'");
 
          switch($data['itemtype']) {
-            case 'PluginFusinvdeployGroup':
+            case 'PluginFusioninventoryDeployGroup':
             case 'Computer':
 
                logDebug(

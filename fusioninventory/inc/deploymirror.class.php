@@ -44,7 +44,7 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-class PluginFusinvdeployMirror extends CommonDBTM {
+class PluginFusioninventoryDeployMirror extends CommonDBTM {
 
    public $dohistory = true;
 

@@ -49,7 +49,7 @@ Html::header_nocache();
 
 if(!isset($_GET['package_id'])) exit;
 
-$action = new PluginFusinvdeployAction;
+$action = new PluginFusioninventoryDeployAction;
 $res = $action->getAllDatas($_REQUEST);
 
 echo $res;

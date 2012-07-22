@@ -61,7 +61,7 @@ if(!isset($_POST["withtemplate"])) {
    $_POST["withtemplate"] = "";
 }
 
-$package          = new PluginFusinvdeployPackage();
+$package          = new PluginFusioninventoryDeployPackage();
 CommonGLPI::displayStandardTab($package, $_REQUEST['glpi_tab']);
 Html::ajaxFooter();
 

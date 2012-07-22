@@ -55,7 +55,7 @@ if (! empty($_FILES)) {
 
       $data = json_decode(file_get_contents($_FILES["file"]["tmp_name"]));
       //logDebug("JSON DATA:\n" . print_r($data,true) . "\n");
-      PluginFusinvdeployPackage::import_json($data);
+      PluginFusioninventoryDeployPackage::import_json($data);
 
    }
 }

@@ -44,7 +44,7 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-class PluginFusinvdeployFile extends CommonDBTM {
+class PluginFusioninventoryDeployFile extends CommonDBTM {
 
    static function getTypeName($nb=0) {
 
@@ -103,8 +103,8 @@ class PluginFusinvdeployFile extends CommonDBTM {
          exit;
       }
 
-      $render_type   = PluginFusinvdeployOrder::getRender($render);
-      $order_id      = PluginFusinvdeployOrder::getIdForPackage($package_id,$render_type);
+      $render_type   = PluginFusioninventoryDeployOrder::getRender($render);
+      $order_id      = PluginFusioninventoryDeployOrder::getIdForPackage($package_id,$render_type);
 
       $sql = "SELECT id as {$render}id, name as {$render}file, mimetype as {$render}mimetype,
                      is_p2p as {$render}p2p, p2p_retention_days as {$render}validity,
@@ -145,7 +145,7 @@ class PluginFusinvdeployFile extends CommonDBTM {
       $taskjobstate = new PluginFusioninventoryTaskjobstate();
 
       //Get the agent ID by his deviceid
-      if ($agents_id = PluginFusinvdeployJob::getAgentByDeviceID($device_id)) {
+      if ($agents_id = PluginFusioninventoryDeployJob::getAgentByDeviceID($device_id)) {
 
 
          //Get tasks associated with the agent
@@ -179,10 +179,10 @@ class PluginFusinvdeployFile extends CommonDBTM {
                         $tmp['name']                      = $result_file['name'];
                         $tmp['p2p']                    = $result_file['is_p2p'];
 
-                        $mirrors = PluginFusinvdeployFile_Mirror::getList();
+                        $mirrors = PluginFusioninventoryDeployFile_Mirror::getList();
                         $tmp['mirrors'] = $mirrors;
 
-                        $fileparts = PluginFusinvdeployFilepart::getForFile($result_file['id']);
+                        $fileparts = PluginFusioninventoryDeployFilepart::getForFile($result_file['id']);
                         $tmp['multiparts'] = $fileparts;
 
                         if (isset($result_file['p2p_retention_days'])) {
@@ -233,7 +233,7 @@ class PluginFusinvdeployFile extends CommonDBTM {
 
       set_time_limit(600);
 
-      $PluginFusinvdeployFilepart = new PluginFusinvdeployFilepart();
+      $PluginFusioninventoryDeployFilepart = new PluginFusinvdeployFilepart();
 
       $filename = addslashes($params['filename']);
       $file_tmp_name = $params['file_tmp_name'];
@@ -282,7 +282,7 @@ class PluginFusinvdeployFile extends CommonDBTM {
             if (feof($fdIn) || filesize($tmpFilepart)>= $maxPartSize) {
                $part_sha512 = $this->registerFilepart ($repoPath, $tmpFilepart);
                $part_short_sha512 = substr($part_sha512, 0, 6);
-               $PluginFusinvdeployFilepart->add(
+               $PluginFusioninventoryDeployFilepart->add(
                   array(
                      'sha512'                        => $part_sha512,
                      'shortsha512'                   => $part_short_sha512,
@@ -346,10 +346,10 @@ class PluginFusinvdeployFile extends CommonDBTM {
          $tmp['create_date']  = $result_file['create_date'];
          $tmp['mimetype']     = $result_file['mimetype'];
 
-         $mirrors = PluginFusinvdeployFile_Mirror::getList();
+         $mirrors = PluginFusioninventoryDeployFile_Mirror::getList();
          $tmp['mirrors'] = $mirrors;
 
-         $fileparts = PluginFusinvdeployFilepart::getForFile($result_file['id']);
+         $fileparts = PluginFusioninventoryDeployFilepart::getForFile($result_file['id']);
          $tmp['multiparts'] = $fileparts;
 
          if (isset($result_file['p2p_retention_days'])) {
@@ -369,15 +369,15 @@ class PluginFusinvdeployFile extends CommonDBTM {
 
       $repoPath = GLPI_PLUGIN_DOC_DIR."/fusinvdeploy/files/repository/";
 
-      $PluginFusinvdeployFilepart = new PluginFusinvdeployFilepart();
+      $PluginFusioninventoryDeployFilepart = new PluginFusinvdeployFilepart();
 
       // Retrieve file informations
       $this->getFromDB($id);
 
       // Delete file in folder
       $sha512 = $this->getField('sha512');
-      $filepart = $PluginFusinvdeployFilepart->getForFile($id);
-      $ids = $PluginFusinvdeployFilepart->getIdsForFile($id);
+      $filepart = $PluginFusioninventoryDeployFilepart->getForFile($id);
+      $ids = $PluginFusioninventoryDeployFilepart->getIdsForFile($id);
 
       //verify that the file is not used by another package, in this case ignore file suppression
       $sql = "SELECT DISTINCT plugin_fusioninventory_deploypackages_id
@@ -399,7 +399,7 @@ class PluginFusinvdeployFile extends CommonDBTM {
 
          // delete parts objects
          foreach($ids as $id => $sha512){
-            $PluginFusinvdeployFilepart->delete(array('id' =>$id));
+            $PluginFusioninventoryDeployFilepart->delete(array('id' =>$id));
          }
       }
 
@@ -445,8 +445,8 @@ class PluginFusinvdeployFile extends CommonDBTM {
          $_FILES[$new_key] = $FILES_value;
       }
 
-      $render   = PluginFusinvdeployOrder::getRender($render);
-      $order_id = PluginFusinvdeployOrder::getIdForPackage($package_id,$render);
+      $render   = PluginFusioninventoryDeployOrder::getRender($render);
+      $order_id = PluginFusioninventoryDeployOrder::getIdForPackage($package_id,$render);
 
       if (isset ($_POST["id"]) and !$_POST['id']) {
 
@@ -526,8 +526,8 @@ class PluginFusinvdeployFile extends CommonDBTM {
     die;
       }
 
-      $render   = PluginFusinvdeployOrder::getRender($render);
-      $order_id = PluginFusinvdeployOrder::getIdForPackage($package_id,$render);
+      $render   = PluginFusioninventoryDeployOrder::getRender($render);
+      $order_id = PluginFusioninventoryDeployOrder::getIdForPackage($package_id,$render);
 
       if (isset ($_POST["id"]) and !$_POST['id']) {
          $file_path = $server_upload_path.'/'.$_POST['file_server'];

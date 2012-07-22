@@ -44,7 +44,7 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-class PluginFusinvdeployCheck extends CommonDBTM {
+class PluginFusioninventoryDeployCheck extends CommonDBTM {
 
    const WINKEY_EXISTS   = 'winkeyExists';    //Registry key present
    const WINKEY_MISSING   = 'winkeyMissing';    //Registry key missing
@@ -118,8 +118,8 @@ class PluginFusinvdeployCheck extends CommonDBTM {
       $render = $params['render'];
 
       //get order id
-      $render_type   = PluginFusinvdeployOrder::getRender($render);
-      $order_id = PluginFusinvdeployOrder::getIdForPackage($package_id,$render_type);
+      $render_type   = PluginFusioninventoryDeployOrder::getRender($render);
+      $order_id = PluginFusioninventoryDeployOrder::getIdForPackage($package_id,$render_type);
 
       //get rankings
       $action_moved = new $this;

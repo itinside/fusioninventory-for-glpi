@@ -56,7 +56,7 @@ if(isset($HTTP_RAW_POST_DATA)){
    exit;
 }
 
-$commandstatus = new PluginFusinvdeployAction_Commandstatus();
+$commandstatus = new PluginFusioninventoryDeployAction_Commandstatus();
 
 $data = array('id'=>$id);
 

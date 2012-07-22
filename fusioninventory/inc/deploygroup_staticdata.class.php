@@ -44,10 +44,10 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-class PluginFusinvdeployGroup_Staticdata extends CommonDBRelation{
+class PluginFusioninventoryDeployGroup_Staticdata extends CommonDBRelation{
 
    // From CommonDBRelation
-   public $itemtype_1 = 'PluginFusinvdeployGroup';
+   public $itemtype_1 = 'PluginFusioninventoryDeployGroup';
    public $items_id_1 = 'groups_id';
 
    public $itemtype_2 = 'itemtype';
@@ -57,7 +57,7 @@ class PluginFusinvdeployGroup_Staticdata extends CommonDBRelation{
 
       if ($ID<0) {
          // Ajout
-         $group = new PluginFusinvdeployGroup();
+         $group = new PluginFusioninventoryDeployGroup();
 
          if (!$group->getFromDB($input['groups_id'])) {
             return false;

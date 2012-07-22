@@ -47,7 +47,7 @@ Session::checkLoginUser();
 header("Content-Type: text/html; charset=UTF-8");
 Html::header_nocache();
 
-$package = new PluginFusinvdeployPackage;
+$package = new PluginFusioninventoryDeployPackage;
 $res = $package->getAllDatas($_REQUEST);
 
 echo $res;

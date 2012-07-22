@@ -47,16 +47,16 @@ if (!defined('GLPI_ROOT')) {
 /**
  * Manage packages orders
  **/
-class PluginFusinvdeployOrder extends CommonDBTM {
+class PluginFusioninventoryDeployOrder extends CommonDBTM {
 
    const INSTALLATION_ORDER   = 0;
    const UNINSTALLATION_ORDER = 1;
 
    static function getRender($render) {
       if ($render == 'install') {
-         return PluginFusinvdeployOrder::INSTALLATION_ORDER;
+         return PluginFusioninventoryDeployOrder::INSTALLATION_ORDER;
       } else {
-         return PluginFusinvdeployOrder::UNINSTALLATION_ORDER;
+         return PluginFusioninventoryDeployOrder::UNINSTALLATION_ORDER;
       }
    }
 
@@ -71,7 +71,7 @@ class PluginFusinvdeployOrder extends CommonDBTM {
       $orders = getAllDatasFromTable('glpi_plugin_fusioninventory_deployorders',
                                      "`plugin_fusioninventory_deploypackages_id`='$packages_id'");
       foreach ($orders as $order) {
-         PluginFusinvdeployCheck::cleanForPackage($order['id']);
+         PluginFusioninventoryDeployCheck::cleanForPackage($order['id']);
       }
 
       $query = "DELETE FROM `glpi_plugin_fusioninventory_deployorders`
@@ -85,11 +85,11 @@ class PluginFusinvdeployOrder extends CommonDBTM {
     * @return nothing
     */
    static function createOrders($packages_id) {
-      $order = new PluginFusinvdeployOrder();
+      $order = new PluginFusioninventoryDeployOrder();
       $tmp['create_date'] = date("Y-m-d H:i:s");
       $tmp['plugin_fusioninventory_deploypackages_id'] = $packages_id;
-      foreach (array(PluginFusinvdeployOrder::INSTALLATION_ORDER,
-                     PluginFusinvdeployOrder::UNINSTALLATION_ORDER) as $type) {
+      foreach (array(PluginFusioninventoryDeployOrder::INSTALLATION_ORDER,
+                     PluginFusioninventoryDeployOrder::UNINSTALLATION_ORDER) as $type) {
          $tmp['type'] = $type;
          $order->add($tmp);
       }
@@ -124,7 +124,7 @@ class PluginFusinvdeployOrder extends CommonDBTM {
    }
 
    static function getOrderDetails($status = array(), $order_type = self::INSTALLATION_ORDER) {
-      $linked_types = array('PluginFusinvdeployCheck');
+      $linked_types = array('PluginFusioninventoryDeployCheck');
 
 
       //get all jobstatus for this task
@@ -136,9 +136,9 @@ class PluginFusinvdeployOrder extends CommonDBTM {
 
       $orders =  array();
       if (!empty($results)) {
-         $related_classes = array('PluginFusinvdeployCheck'  => 'checks',
-                                  'PluginFusinvdeployFile'   => 'associatedFiles',
-                                  'PluginFusinvdeployAction' => 'actions');
+         $related_classes = array('PluginFusioninventoryDeployCheck'  => 'checks',
+                                  'PluginFusioninventoryDeployFile'   => 'associatedFiles',
+                                  'PluginFusioninventoryDeployAction' => 'actions');
 
          foreach ($related_classes as $class => $key) {
             foreach ($results as $result) {
@@ -157,17 +157,17 @@ class PluginFusinvdeployOrder extends CommonDBTM {
 
    static function getOrderDetailsFromPackage($package_id = 0, $order_type = self::INSTALLATION_ORDER) {
       $orders =  array();
-      if ($package_id != 0) $order_id = PluginFusinvdeployOrder::getIdForPackage($package_id,
+      if ($package_id != 0) $order_id = PluginFusioninventoryDeployOrder::getIdForPackage($package_id,
          $order_type);
       if ( isset($order_id) ) {
 
-         $related_classes = array('PluginFusinvdeployCheck'  => 'checks',
-                                  'PluginFusinvdeployFile'   => 'associatedFiles',
-                                  'PluginFusinvdeployAction' => 'actions');
+         $related_classes = array('PluginFusioninventoryDeployCheck'  => 'checks',
+                                  'PluginFusioninventoryDeployFile'   => 'associatedFiles',
+                                  'PluginFusioninventoryDeployAction' => 'actions');
 
          foreach ($related_classes as $class => $key) {
                $tmp            = call_user_func(array($class,'getForOrder'),$order_id);
-               if ($key == 'associatedFiles') $orders[$key] = PluginFusinvdeployFile::getAssociatedFilesForOrder($order_id);
+               if ($key == 'associatedFiles') $orders[$key] = PluginFusioninventoryDeployFile::getAssociatedFilesForOrder($order_id);
                else $orders[$key] = $tmp;
          }
       }

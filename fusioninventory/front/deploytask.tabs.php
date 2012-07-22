@@ -51,8 +51,8 @@ if(!isset($_POST["id"])) {
    exit();
 }
 
-$group          = new PluginFusinvdeployGroup();
-$task          = new PluginFusinvdeployTask();
+$group          = new PluginFusioninventoryDeployGroup();
+$task          = new PluginFusioninventoryDeployTask();
 
 CommonGLPI::displayStandardTab($task, $_REQUEST['glpi_tab']);
 Html::ajaxFooter();

@@ -49,7 +49,7 @@ Html::header_nocache();
 
 if (!isset($_REQUEST['status_id'])) exit;
 if ($_REQUEST['status_id'] == 0)
-   echo PluginFusinvdeployState::getTaskJobLogsDatasTree($_REQUEST);
-else echo PluginFusinvdeployState::getTaskJobLogsDatasTreeNode($_REQUEST);
+   echo PluginFusioninventoryDeployState::getTaskJobLogsDatasTree($_REQUEST);
+else echo PluginFusioninventoryDeployState::getTaskJobLogsDatasTreeNode($_REQUEST);
 
 ?>

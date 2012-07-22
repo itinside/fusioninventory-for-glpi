@@ -61,8 +61,8 @@ foreach($_POST as $POST_key => $POST_value) {
 }
 
 if (isset ($_POST["id"]) and $_POST['id']) {
-   $PluginFusinvdeployFile = new PluginFusinvdeployFile();
-   $PluginFusinvdeployFile->removeFileInRepo($_POST["id"]);
+   $PluginFusioninventoryDeployFile = new PluginFusinvdeployFile();
+   $PluginFusioninventoryDeployFile->removeFileInRepo($_POST["id"]);
 }
 exit;
 

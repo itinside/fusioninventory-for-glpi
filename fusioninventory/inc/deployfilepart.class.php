@@ -44,7 +44,7 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-class PluginFusinvdeployFilepart extends CommonDBTM {
+class PluginFusioninventoryDeployFilepart extends CommonDBTM {
 
 
    static function getTypeName($nb=0) {
@@ -99,8 +99,8 @@ class PluginFusinvdeployFilepart extends CommonDBTM {
       $short_sha512 = substr($sha512, 0, 6);
 
       //search by shortsha512
-      $PluginFusinvdeployFilepart = new PluginFusinvdeployFilepart;
-      $files = $PluginFusinvdeployFilepart->find("shortsha512='".$short_sha512."'");
+      $PluginFusioninventoryDeployFilepart = new PluginFusinvdeployFilepart;
+      $files = $PluginFusioninventoryDeployFilepart->find("shortsha512='".$short_sha512."'");
 
       if (count($files) > 1) {
          //find file with long sha512
@@ -127,7 +127,7 @@ class PluginFusinvdeployFilepart extends CommonDBTM {
       $repoPath = GLPI_PLUGIN_DOC_DIR."/fusinvdeploy/files/repository/";
       $sha512 = $file['sha512'];
 
-      $filePath = $repoPath.PluginFusinvdeployFile::getDirBySha512($sha512).'/'.$sha512.'.gz';
+      $filePath = $repoPath.PluginFusioninventoryDeployFile::getDirBySha512($sha512).'/'.$sha512.'.gz';
 
 
 

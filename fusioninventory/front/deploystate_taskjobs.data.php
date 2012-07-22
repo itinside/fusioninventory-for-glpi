@@ -47,6 +47,6 @@ Session::checkLoginUser();
 header("Content-Type: text/html; charset=UTF-8");
 Html::header_nocache();
 
-echo PluginFusinvdeployState::getTaskjobsDatas($_REQUEST);
+echo PluginFusioninventoryDeployState::getTaskjobsDatas($_REQUEST);
 
 ?>

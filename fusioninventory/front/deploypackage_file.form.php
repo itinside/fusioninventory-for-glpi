@@ -47,7 +47,7 @@ Session::checkLoginUser();
 
 //PluginFusioninventoryProfile::checkRight("Fusioninventory", "agents","r");
 
-$file = new PluginFusinvdeployPackage_File();
+$file = new PluginFusioninventoryDeployPackage_File();
 
 if (isset ($_POST["add"])) {
 // PluginFusioninventoryProfile::checkRight("Fusinvdeloy", "package","w");

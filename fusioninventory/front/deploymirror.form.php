@@ -51,7 +51,7 @@ Html::header(_('Mirror servers'),$_SERVER["PHP_SELF"],"plugins",
 
 PluginFusioninventoryMenu::displayMenu("mini");
 
-$mirror = new PluginFusinvdeployMirror();
+$mirror = new PluginFusioninventoryDeployMirror();
 
 if (isset ($_POST["add"])) {
 // PluginFusioninventoryProfile::checkRight("Fusinvdeloy", "package","w");
@@ -64,7 +64,7 @@ if (isset ($_POST["add"])) {
 } else if (isset ($_POST["delete"])) {
 // PluginFusioninventoryProfile::checkRight("Fusinvdeloy", "package","w");
    $mirror->delete($_POST);
-   Html::redirect(Toolbox::getItemTypeFormURL('PluginFusinvdeployMirror'));
+   Html::redirect(Toolbox::getItemTypeFormURL('PluginFusioninventoryDeployMirror'));
 }
 
 $id = "";

@@ -54,7 +54,7 @@ Html::header(_('Mirror servers'),$_SERVER["PHP_SELF"],"plugins",
 
 PluginFusioninventoryMenu::displayMenu("mini");
 
-Search::show('PluginFusinvdeployMirror');
+Search::show('PluginFusioninventoryDeployMirror');
 Html::footer();
 
 ?>

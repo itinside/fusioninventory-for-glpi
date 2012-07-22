@@ -51,7 +51,7 @@ if (!isset($_GET["id"])) {
    $_GET["id"] = "";
 }
 
-$task = new PluginFusinvdeployTask();
+$task = new PluginFusioninventoryDeployTask();
 
 if (isset($_POST['forcestart'])) {
    $PluginFusioninventoryTaskjob = new PluginFusioninventoryTaskjob();

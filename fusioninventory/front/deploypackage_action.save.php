@@ -52,7 +52,7 @@ if(!isset($_GET['package_id'])){
    exit;
 }
 
-$action = new PluginFusinvdeployAction;
+$action = new PluginFusioninventoryDeployAction;
 $res = $action->saveData($_REQUEST);
 
 echo $res;

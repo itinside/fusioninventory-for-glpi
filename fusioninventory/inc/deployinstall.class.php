@@ -44,7 +44,7 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-class PluginFusinvdeployInstall extends CommonDBTM {
+class PluginFusioninventoryDeployInstall extends CommonDBTM {
 
    static function getTypeName($nb=0) {
 
@@ -55,14 +55,14 @@ class PluginFusinvdeployInstall extends CommonDBTM {
    function getTabNameForItem(CommonGLPI $item, $withtemplate=0) {
 
       switch(get_class($item)) {
-         case 'PluginFusinvdeployPackage': return _('Installation');
+         case 'PluginFusioninventoryDeployPackage': return _('Installation');
 
       }
    }
 
    static function displayTabContentForItem(CommonGLPI $item, $tabnum=1, $withtemplate=0) {
       switch(get_class($item)) {
-         case 'PluginFusinvdeployPackage':
+         case 'PluginFusioninventoryDeployPackage':
             $obj = new self;
             $obj->showForm($_POST['id']);
             break;
@@ -73,9 +73,9 @@ class PluginFusinvdeployInstall extends CommonDBTM {
       global $CFG_GLPI;
 
       $disabled = "false";
-      if (!PluginFusinvdeployPackage::canEdit($id)) {
+      if (!PluginFusioninventoryDeployPackage::canEdit($id)) {
          $disabled = "true";
-         PluginFusinvdeployPackage::showEditDeniedMessage($id,
+         PluginFusioninventoryDeployPackage::showEditDeniedMessage($id,
                _('One or more active tasks (#task#) use this package. Edition denied.'));
 
       }

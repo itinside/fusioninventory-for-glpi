@@ -44,7 +44,7 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-class PluginFusinvdeployPackage extends CommonDBTM {
+class PluginFusioninventoryDeployPackage extends CommonDBTM {
 
    static function getTypeName($nb=0) {
 
@@ -77,8 +77,8 @@ class PluginFusinvdeployPackage extends CommonDBTM {
 
       $ong = array();
       if ($this->fields['id'] > 0){
-         $this->addStandardTab('PluginFusinvdeployInstall', $ong, $options);
-         $this->addStandardTab('PluginFusinvdeployUninstall', $ong, $options);
+         $this->addStandardTab('PluginFusioninventoryDeployInstall', $ong, $options);
+         $this->addStandardTab('PluginFusioninventoryDeployUninstall', $ong, $options);
       }
       $ong['no_all_tab'] = true;
       return $ong;
@@ -147,12 +147,12 @@ class PluginFusinvdeployPackage extends CommonDBTM {
       //check whether orders have not already been created
       if (!isset($_SESSION['tmp_clone_package'])) {
          //Create installation & uninstallation order
-         PluginFusinvdeployOrder::createOrders($this->fields['id']);
+         PluginFusioninventoryDeployOrder::createOrders($this->fields['id']);
       }
    }
 
    function cleanDBonPurge() {
-      PluginFusinvdeployOrder::cleanForPackage($this->fields['id']);
+      PluginFusioninventoryDeployOrder::cleanForPackage($this->fields['id']);
    }
 
    function title() {
@@ -185,7 +185,7 @@ class PluginFusinvdeployPackage extends CommonDBTM {
       echo "<table class='tab_cadre_navigation'><tr><td>";
 
       self::title();
-      Search::show('PluginFusinvdeployPackage');
+      Search::show('PluginFusioninventoryDeployPackage');
 
       echo "</td></tr></table>";
       echo "</center>";
@@ -269,7 +269,7 @@ class PluginFusinvdeployPackage extends CommonDBTM {
       global $DB;
 
       $taskjobs_a = getAllDatasFromTable('glpi_plugin_fusioninventory_taskjobs',
-               "definition LIKE '%\"PluginFusinvdeployPackage\":\"".$id."%'");
+               "definition LIKE '%\"PluginFusioninventoryDeployPackage\":\"".$id."%'");
 
       foreach ($taskjobs_a as $job) {
          $task = new PluginFusioninventoryTask;
@@ -284,10 +284,10 @@ class PluginFusinvdeployPackage extends CommonDBTM {
 
       //if task use this package, delete denied
       if (!self::canEdit($this->getField('id'))) {
-         $task = new PluginFusinvdeployTask;
+         $task = new PluginFusioninventoryDeployTask;
          $tasks_url = "";
          $taskjobs = getAllDatasFromTable('glpi_plugin_fusioninventory_deploytaskjobs',
-                  "definition LIKE '%\"PluginFusinvdeployPackage\":\"".$this->getField('id')."%'");
+                  "definition LIKE '%\"PluginFusioninventoryDeployPackage\":\"".$this->getField('id')."%'");
          foreach($taskjobs as $job) {
             $task->getFromDB($job['plugin_fusioninventory_deploytasks_id']);
             $tasks_url .= "<a href='".$CFG_GLPI["root_doc"]."/plugins/fusioninventory/front/task.form.php?id="
@@ -315,11 +315,11 @@ class PluginFusinvdeployPackage extends CommonDBTM {
 
          $d_package = $data->package;
          $d_orders = array(
-            PluginFusinvdeployOrder::INSTALLATION_ORDER => $data->install,
-            PluginFusinvdeployOrder::UNINSTALLATION_ORDER => $data->uninstall
+            PluginFusioninventoryDeployOrder::INSTALLATION_ORDER => $data->install,
+            PluginFusioninventoryDeployOrder::UNINSTALLATION_ORDER => $data->uninstall
          );
          //Create Package
-         $o_package = new PluginFusinvdeployPackage();
+         $o_package = new PluginFusioninventoryDeployPackage();
          $i_package = array();
          $i_package['name'] = $d_package->name;
          $i_package['comment'] = $d_package->comment;
@@ -330,7 +330,7 @@ class PluginFusinvdeployPackage extends CommonDBTM {
          if ($o_package->add($i_package)) {
 
             //Create Orders(Install/Uninstall)
-            $o_order = new PluginFusinvdeployOrder();
+            $o_order = new PluginFusioninventoryDeployOrder();
             foreach( $d_orders as $order_type => $order_data) {
                //Find Orders created by Package object
                $orders = $o_order->find(
@@ -350,7 +350,7 @@ class PluginFusinvdeployPackage extends CommonDBTM {
                   //Create Checks
                   foreach( $order_data->checks as $check_idx => $d_check) {
                      //logDebug("checks debug:\n" . $check_idx . "\n" . print_r($d_check,true) . "\n");
-                     $o_check = new PluginFusinvdeployCheck();
+                     $o_check = new PluginFusioninventoryDeployCheck();
                      $i_check = array();
                      $i_check['type'] = mysql_real_escape_string($d_check->{'type'});
                      $i_check['path'] = mysql_real_escape_string($d_check->{'path'});
@@ -375,7 +375,7 @@ class PluginFusinvdeployPackage extends CommonDBTM {
                   //they don't exist. This is the Order who should have a reference to the file and
                   //not the opposite!!!!
                   foreach( $order_data->associatedFiles as $file_idx => $d_file) {
-                     $o_file = new PluginFusinvdeployFile();
+                     $o_file = new PluginFusioninventoryDeployFile();
                      //logDebug('file_idx : ' . $file_idx);
                      $i_file = array();
                      $i_file['name'] = $d_file->{'name'};
@@ -393,7 +393,7 @@ class PluginFusinvdeployPackage extends CommonDBTM {
 
                      //Attach Multipart
                      foreach( $d_file->multiparts as $part) {
-                        $o_filepart = new PluginFusinvdeployFilepart();
+                        $o_filepart = new PluginFusioninventoryDeployFilepart();
                         //logDebug("File Part : " . print_r($part,true) . "\n");
                         $i_filepart = array();
                         $i_filepart['sha512'] = $part;
@@ -407,7 +407,7 @@ class PluginFusinvdeployPackage extends CommonDBTM {
                   foreach( $order_data->actions as $action_idx => $action ) {
                      //logDebug("actions Debug:\n" . $action_idx . "\n" . print_r($action,true) . "\n");
                      //logDebug("actions properties " . print_r(array_keys(get_object_vars($action)),true) );
-                     $o_action = new PluginFusinvdeployAction();
+                     $o_action = new PluginFusioninventoryDeployAction();
                      $i_action = array();
                      $i_action['plugin_fusioninventory_deployorders_id'] = $o_order->fields['id'];
                      $o_action->add($i_action);
@@ -418,14 +418,14 @@ class PluginFusinvdeployPackage extends CommonDBTM {
                         $d_action_sub = $action->{$d_action_props[0]};
                         switch($d_action_props[0]) {
                            case 'cmd':
-                              $o_action_sub = new PluginFusinvdeployAction_Command();
+                              $o_action_sub = new PluginFusioninventoryDeployAction_Command();
                               $i_action_sub = array();
                               $i_action_sub['exec'] = mysql_real_escape_string($d_action_sub->{'exec'});
                               $o_action_sub->add($i_action_sub);
                               if ( isset($d_action_sub->{'retChecks'}) && !empty($d_action_sub->{'retChecks'}) ){
                                  # Create CommandStatus
                                  foreach( $d_action_sub->{'retChecks'} as $retcheck_idx => $d_retcheck ) {
-                                    $o_retcheck = new PluginFusinvdeployAction_Commandstatus();
+                                    $o_retcheck = new PluginFusioninventoryDeployAction_Commandstatus();
                                     $i_retcheck = array();
                                     switch( $d_retcheck->{'type'} ) {
                                        case 'okCode':
@@ -449,27 +449,27 @@ class PluginFusinvdeployPackage extends CommonDBTM {
                               }
                               break;
                            case 'delete':
-                              $o_action_sub = new PluginFusinvdeployAction_Delete();
+                              $o_action_sub = new PluginFusioninventoryDeployAction_Delete();
                               $i_action_sub = array();
                               $i_action_sub['path'] = mysql_real_escape_string($d_action_sub->{'list'}[0]);
                               $o_action_sub->add($i_action_sub);
                               break;
                            case 'move':
-                              $o_action_sub = new PluginFusinvdeployAction_Move();
+                              $o_action_sub = new PluginFusioninventoryDeployAction_Move();
                               $i_action_sub = array();
                               $i_action_sub['from'] = mysql_real_escape_string( $d_action_sub->{'from'} );
                               $i_action_sub['to'] = mysql_real_escape_string( $d_action_sub->{'to'} );
                               $o_action_sub->add($i_action_sub);
                               break;
                            case 'copy':
-                              $o_action_sub = new PluginFusinvdeployAction_Copy();
+                              $o_action_sub = new PluginFusioninventoryDeployAction_Copy();
                               $i_action_sub = array();
                               $i_action_sub['from'] = mysql_real_escape_string( $d_action_sub->{'from'} );
                               $i_action_sub['to'] = mysql_real_escape_string( $d_action_sub->{'to'} );
                               $o_action_sub->add($i_action_sub);
                               break;
                            case 'mkdir':
-                              $o_action_sub = new PluginFusinvdeployAction_Mkdir();
+                              $o_action_sub = new PluginFusioninventoryDeployAction_Mkdir();
                               $i_action_sub = array();
                               $i_action_sub['path'] = mysql_real_escape_string($d_action_sub->{'list'}[0]);
                               $o_action_sub->add($i_action_sub);
@@ -502,11 +502,11 @@ class PluginFusinvdeployPackage extends CommonDBTM {
       $params = $this->fields;
       unset($params['id']);
       $params['name'] = $new_name;
-      $new_package = new PluginFusinvdeployPackage;
+      $new_package = new PluginFusioninventoryDeployPackage;
       $package_newId = $new_package->add($params);
 
       //duplicate orders
-      $order_obj = new PluginFusinvdeployOrder;
+      $order_obj = new PluginFusioninventoryDeployOrder;
       $orders = $order_obj->find("plugin_fusioninventory_deploypackages_id = '".$package_oldId."'");
 
       foreach($orders as $order_oldId => $order) {
@@ -521,7 +521,7 @@ class PluginFusinvdeployPackage extends CommonDBTM {
 
 
          //duplicate checks
-         $check_obj = new PluginFusinvdeployCheck;
+         $check_obj = new PluginFusioninventoryDeployCheck;
          $checks = $check_obj->find("plugin_fusioninventory_deployorders_id = '".$order_oldId."'");
          foreach ($checks as $check_oldId => $check) {
             //create new check for this new order
@@ -531,7 +531,7 @@ class PluginFusinvdeployPackage extends CommonDBTM {
          }
 
          //duplicate files
-         $file_obj = new PluginFusinvdeployFile;
+         $file_obj = new PluginFusioninventoryDeployFile;
          $files = $file_obj->find("plugin_fusioninventory_deployorders_id = '".$order_oldId."'");
          foreach ($files as $file_oldId => $file) {
             //create new file for this new order
@@ -540,7 +540,7 @@ class PluginFusinvdeployPackage extends CommonDBTM {
             $file_newId = $file_obj->add($file);
 
             //duplicate fileparts
-            $filepart_obj = new PluginFusinvdeployFilepart;
+            $filepart_obj = new PluginFusioninventoryDeployFilepart;
             $fileparts = $filepart_obj->find("plugin_fusioninventory_deployfiles_id = '".$order_oldId."'");
             foreach ($fileparts as $filepart_oldId => $filepart) {
                //create new filepart for this new file
@@ -552,7 +552,7 @@ class PluginFusinvdeployPackage extends CommonDBTM {
          }
 
          //duplicate actions
-         $action_obj = new PluginFusinvdeployAction;
+         $action_obj = new PluginFusioninventoryDeployAction;
          $actions = $action_obj->find("plugin_fusioninventory_deployorders_id = '".$order_oldId."'");
          foreach ($actions as $action_oldId => $action) {
             //duplicate actions subitem
@@ -564,12 +564,12 @@ class PluginFusinvdeployPackage extends CommonDBTM {
             $action_subitem_newId = $action_subitem_obj->add($params_subitem);
 
             //special case for command, we need to duplicate commandstatus and commandenvvariables
-            if ($action['itemtype'] == 'PluginFusinvdeployAction_Command') {
+            if ($action['itemtype'] == 'PluginFusioninventoryDeployAction_Command') {
                $command_oldId = $action_subitem_oldId;
                $command_newId = $action_subitem_newId;
 
                //duplicate commandstatus
-               $commandstatus_obj = new PluginFusinvdeployAction_Commandstatus;
+               $commandstatus_obj = new PluginFusioninventoryDeployAction_Commandstatus;
                $commandstatus = $commandstatus_obj->find("plugin_fusioninventory_deploycommands_id = '".$command_oldId."'");
                foreach ($commandstatus as $commandstatus_oldId => $commandstate) {
                   //create new commandstatus for this command
@@ -579,7 +579,7 @@ class PluginFusinvdeployPackage extends CommonDBTM {
                }
 
                //duplicate commandenvvariables
-               $commandenvvariables_obj = new PluginFusinvdeployAction_Commandenvvariable;
+               $commandenvvariables_obj = new PluginFusioninventoryDeployAction_Commandenvvariable;
                $commandenvvariables = $commandenvvariables_obj->find("plugin_fusioninventory_deploycommands_id = '".$command_oldId."'");
                foreach ($commandenvvariables as $commandenvvariable_oldId => $commandenvvariable) {
                   //create new commandenvvariable for this command
@@ -617,11 +617,11 @@ class PluginFusinvdeployPackage extends CommonDBTM {
    static function showEditDeniedMessage($id, $message) {
       global $CFG_GLPI, $CFG_GLPI;
 
-      $task = new PluginFusinvdeployTask;
+      $task = new PluginFusioninventoryDeployTask;
       $tasks_url = "";
 
       $taskjobs = getAllDatasFromTable('glpi_plugin_fusioninventory_deploytaskjobs',
-               "definition LIKE '%\"PluginFusinvdeployPackage\":\"".$id."%'");
+               "definition LIKE '%\"PluginFusioninventoryDeployPackage\":\"".$id."%'");
 
       # A task can have more than one taskjobs is an Install and Uninstall function are associated
       # to the same tasks

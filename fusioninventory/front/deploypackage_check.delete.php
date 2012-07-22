@@ -58,7 +58,7 @@ foreach($_POST as $POST_key => $POST_value) {
    $_POST[$new_key] = $POST_value;
 }
 
-$check = new PluginFusinvdeployCheck();
+$check = new PluginFusioninventoryDeployCheck();
 
 if (isset ($_POST["id"]) && $_POST['id']) {
    $check->delete($_POST);

@@ -54,8 +54,8 @@ if(isset($_GET['package_id'])){
    exit;
 }
 
-$render_type   = PluginFusinvdeployOrder::getRender($render);
-$order_id      = PluginFusinvdeployOrder::getIdForPackage($package_id,$render_type);
+$render_type   = PluginFusioninventoryDeployOrder::getRender($render);
+$order_id      = PluginFusioninventoryDeployOrder::getIdForPackage($package_id,$render_type);
 $sql           = "SELECT id as {$render}id,
                       type as {$render}type,
                       path as {$render}path,

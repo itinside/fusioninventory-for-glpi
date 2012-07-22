@@ -52,7 +52,7 @@ if(!isset($_GET['package_id'])){
    exit;
 }
 
-$check = new PluginFusinvdeployCheck;
+$check = new PluginFusioninventoryDeployCheck;
 $res = $check->update_ranking($_REQUEST);
 
 echo $res;

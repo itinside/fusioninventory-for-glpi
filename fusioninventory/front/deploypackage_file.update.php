@@ -47,7 +47,7 @@ Session::checkLoginUser();
 header("Content-Type: text/html; charset=UTF-8");
 Html::header_nocache();
 
-$PluginFusinvdeployFile = new PluginFusinvdeployFile();
+$PluginFusioninventoryDeployFile = new PluginFusinvdeployFile();
 
 if(isset($_GET['package_id'])){
    $package_id = $_GET['package_id'];
@@ -65,7 +65,7 @@ if (isset ($_POST["id"]) && $_POST['id']){
       'uncompress' => (($_POST['uncompress'] == 'true') ? 1 : 0),
       'p2p_retention_days' => is_numeric($_POST['validity']) ? $_POST['validity'] : 0
    );
-   if ($PluginFusinvdeployFile->update($data)) {
+   if ($PluginFusioninventoryDeployFile->update($data)) {
       echo "{success:true, file:'N/A',msg:\"{_('File saved!')}\"}";
    } else echo "{success:false, file:'N/A', msg:\"error\"}";
 }

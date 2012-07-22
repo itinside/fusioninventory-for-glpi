@@ -46,23 +46,23 @@ checkLoginUser();
 
 
 if ( !isset($_GET['package_id'])) exit();
-$package = new PluginFusinvdeployPackage();
+$package = new PluginFusioninventoryDeployPackage();
 if ( !$package->getFromDB($_GET['package_id'])) exit();
 
 
-$package_order = new PluginFusinvdeployOrder();
+$package_order = new PluginFusioninventoryDeployOrder();
 $config = array();
 $config['package'] = $package->fields;
 $config['install'] =
-   PluginFusinvdeployOrder::getOrderDetailsFromPackage(
+   PluginFusioninventoryDeployOrder::getOrderDetailsFromPackage(
       $_GET['package_id'],
-      PluginFusinvdeployOrder::INSTALLATION_ORDER
+      PluginFusioninventoryDeployOrder::INSTALLATION_ORDER
    );
 
 $config['uninstall'] =
-   PluginFusinvdeployOrder::getOrderDetailsFromPackage(
+   PluginFusioninventoryDeployOrder::getOrderDetailsFromPackage(
       $_GET['package_id'],
-      PluginFusinvdeployOrder::UNINSTALLATION_ORDER
+      PluginFusioninventoryDeployOrder::UNINSTALLATION_ORDER
    );
 
 $json =
