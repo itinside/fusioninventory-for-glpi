@@ -68,14 +68,14 @@ class PluginFusinvdeployOrder extends CommonDBTM {
    static function cleanForPackage($packages_id) {
       global $DB;
 
-      $orders = getAllDatasFromTable('glpi_plugin_fusinvdeploy_orders',
-                                     "`plugin_fusinvdeploy_packages_id`='$packages_id'");
+      $orders = getAllDatasFromTable('glpi_plugin_fusioninventory_deployorders',
+                                     "`plugin_fusioninventory_deploypackages_id`='$packages_id'");
       foreach ($orders as $order) {
          PluginFusinvdeployCheck::cleanForPackage($order['id']);
       }
 
-      $query = "DELETE FROM `glpi_plugin_fusinvdeploy_orders`
-                WHERE `plugin_fusinvdeploy_packages_id`='$packages_id'";
+      $query = "DELETE FROM `glpi_plugin_fusioninventory_deployorders`
+                WHERE `plugin_fusioninventory_deploypackages_id`='$packages_id'";
       $DB->query($query);
    }
 
@@ -87,7 +87,7 @@ class PluginFusinvdeployOrder extends CommonDBTM {
    static function createOrders($packages_id) {
       $order = new PluginFusinvdeployOrder();
       $tmp['create_date'] = date("Y-m-d H:i:s");
-      $tmp['plugin_fusinvdeploy_packages_id'] = $packages_id;
+      $tmp['plugin_fusioninventory_deploypackages_id'] = $packages_id;
       foreach (array(PluginFusinvdeployOrder::INSTALLATION_ORDER,
                      PluginFusinvdeployOrder::UNINSTALLATION_ORDER) as $type) {
          $tmp['type'] = $type;
@@ -110,8 +110,8 @@ class PluginFusinvdeployOrder extends CommonDBTM {
     * @return 0 if no order found or the order's ID
     */
    static function getIdForPackage($packages_id, $order_type = self::INSTALLATION_ORDER) {
-      $orders = getAllDatasFromTable('glpi_plugin_fusinvdeploy_orders',
-                                     "`plugin_fusinvdeploy_packages_id`='$packages_id'" .
+      $orders = getAllDatasFromTable('glpi_plugin_fusioninventory_deployorders',
+                                     "`plugin_fusioninventory_deploypackages_id`='$packages_id'" .
                                      " AND `type`='$order_type'");
 
       if (empty($orders)) {
@@ -130,8 +130,8 @@ class PluginFusinvdeployOrder extends CommonDBTM {
       //get all jobstatus for this task
       $results = array();
       $package_id = $status['items_id'];
-      $results = getAllDatasFromTable('glpi_plugin_fusinvdeploy_orders',
-                                  "`plugin_fusinvdeploy_packages_id`='$package_id'" .
+      $results = getAllDatasFromTable('glpi_plugin_fusioninventory_deployorders',
+                                  "`plugin_fusioninventory_deploypackages_id`='$package_id'" .
                                         " AND `type`='$order_type'");
 
       $orders =  array();

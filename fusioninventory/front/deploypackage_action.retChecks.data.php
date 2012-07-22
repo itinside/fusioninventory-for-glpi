@@ -56,12 +56,12 @@ if(isset($_GET['CommandId'])){
 
 $render_type   = PluginFusinvdeployOrder::getRender($render);
 
-$sql = " SELECT plugin_fusinvdeploy_commands_id as {$render}CommandId,
+$sql = " SELECT plugin_fusioninventory_deploycommands_id as {$render}CommandId,
                 id,
                 type,
                 value
-         FROM `glpi_plugin_fusinvdeploy_actions_commandstatus`
-         WHERE `plugin_fusinvdeploy_commands_id` = '$CommandId'";
+         FROM `glpi_plugin_fusioninventory_deployactions_commandstatus`
+         WHERE `plugin_fusioninventory_deploycommands_id` = '$CommandId'";
 
 $qry  = $DB->query($sql);
 

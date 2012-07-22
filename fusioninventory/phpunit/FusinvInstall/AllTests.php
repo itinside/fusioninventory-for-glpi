@@ -83,11 +83,11 @@ class FusinvInstall extends PHPUnit_Framework_TestCase {
              }
           }
        }
-       if (isset($a_tables_ref['glpi_plugin_fusinvdeploy_tasks'])) {
-          unset($a_tables_ref['glpi_plugin_fusinvdeploy_tasks']);
+       if (isset($a_tables_ref['glpi_plugin_fusioninventory_deploytasks'])) {
+          unset($a_tables_ref['glpi_plugin_fusioninventory_deploytasks']);
        }
-       if (isset($a_tables_ref['glpi_plugin_fusinvdeploy_taskjobs'])) {
-          unset($a_tables_ref['glpi_plugin_fusinvdeploy_taskjobs']);
+       if (isset($a_tables_ref['glpi_plugin_fusioninventory_deploytaskjobs'])) {
+          unset($a_tables_ref['glpi_plugin_fusioninventory_deploytaskjobs']);
        }
 
       // * Get tables from MySQL
@@ -103,8 +103,8 @@ class FusinvInstall extends PHPUnit_Framework_TestCase {
              AND(!strstr($data[0], "glpi_plugin_fusioninventory_pcivendors"))
              AND(!strstr($data[0], "glpi_plugin_fusioninventory_usbdevices"))
              AND(!strstr($data[0], "glpi_plugin_fusioninventory_usbvendors"))
-             AND($data[0] != 'glpi_plugin_fusinvdeploy_tasks')
-             AND($data[0] != 'glpi_plugin_fusinvdeploy_taskjobs')){
+             AND($data[0] != 'glpi_plugin_fusioninventory_deploytasks')
+             AND($data[0] != 'glpi_plugin_fusioninventory_deploytaskjobs')){
             $data[0] = str_replace(" COLLATE utf8_unicode_ci", "", $data[0]);
             $data[0] = str_replace("( ", "(", $data[0]);
             $data[0] = str_replace(" )", ")", $data[0]);

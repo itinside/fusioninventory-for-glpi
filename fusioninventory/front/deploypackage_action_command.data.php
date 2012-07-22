@@ -57,14 +57,14 @@ if(isset($_GET['package_id'])){
 $render_type   = PluginFusinvdeployOrder::getRender($render);
 $order_id      = PluginFusinvdeployOrder::getIdForPackage($package_id,$render_type);
 
-$sql = " SELECT `glpi_plugin_fusinvdeploy_actions_commands`.id as {$render}commands_id,
-                `glpi_plugin_fusinvdeploy_actions_commands`.exec as {$render}commands_name
-         FROM `glpi_plugin_fusinvdeploy_actions` as `glpi_plugin_fusinvdeploy_actions`
-         INNER JOIN `glpi_plugin_fusinvdeploy_actions_commands`
-                        as `glpi_plugin_fusinvdeploy_actions_commands`
-               ON    `glpi_plugin_fusinvdeploy_actions_commands`.id
-               =     `glpi_plugin_fusinvdeploy_actions`.items_id
-         WHERE `glpi_plugin_fusinvdeploy_actions`.plugin_fusinvdeploy_orders_id = '$order_id'";
+$sql = " SELECT `glpi_plugin_fusioninventory_deployactions_commands`.id as {$render}commands_id,
+                `glpi_plugin_fusioninventory_deployactions_commands`.exec as {$render}commands_name
+         FROM `glpi_plugin_fusioninventory_deployactions` as `glpi_plugin_fusinvdeploy_actions`
+         INNER JOIN `glpi_plugin_fusioninventory_deployactions_commands`
+                        as `glpi_plugin_fusioninventory_deployactions_commands`
+               ON    `glpi_plugin_fusioninventory_deployactions_commands`.id
+               =     `glpi_plugin_fusioninventory_deployactions`.items_id
+         WHERE `glpi_plugin_fusioninventory_deployactions`.plugin_fusinvdeploy_orders_id = '$order_id'";
 
 $qry  = $DB->query($sql);
 

@@ -66,8 +66,8 @@ $sql           = "SELECT id as {$render}id,
                         OR type = 'fileSizeLower'
                         OR type = 'fileSizeGreater'
                         OR type = 'fileSizeEquals', 'MiB', '') as {$render}unit
-                   FROM `glpi_plugin_fusinvdeploy_checks`
-                   WHERE `plugin_fusinvdeploy_orders_id` = '$order_id'";
+                   FROM `glpi_plugin_fusioninventory_deploychecks`
+                   WHERE `plugin_fusioninventory_deployorders_id` = '$order_id'";
 
 
 $qry  = $DB->query($sql);

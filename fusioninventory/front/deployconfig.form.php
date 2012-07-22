@@ -49,7 +49,7 @@ Session::checkRight("config","w");
 Html::header(_('Features'), $_SERVER["PHP_SELF"],
              "plugins", "fusinvdeploy", "configuration");
 
-if (isset($_POST['plugin_fusinvdeploy_config_set'])) {
+if (isset($_POST['plugin_fusioninventory_deployconfig_set'])) {
    $pfConfig = new PluginFusinvdeployConfig();
    $pfConfig->putForm($_POST);
    Html::back();

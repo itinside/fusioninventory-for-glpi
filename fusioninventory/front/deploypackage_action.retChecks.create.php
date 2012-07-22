@@ -65,12 +65,12 @@ $commandstatus = new PluginFusinvdeployAction_Commandstatus();
 
 $data = array( 'type'   => $type,
                'value'  => $value,
-               'plugin_fusinvdeploy_commands_id'     => $commandId);
+               'plugin_fusioninventory_deploycommands_id'     => $commandId);
 
 $newId = $commandstatus->add($data);
 
-$sql = "SELECT plugin_fusinvdeploy_commands_id as $commandIdName, id, type, value
-         FROM `glpi_plugin_fusinvdeploy_actions_commandstatus`
+$sql = "SELECT plugin_fusioninventory_deploycommands_id as $commandIdName, id, type, value
+         FROM `glpi_plugin_fusioninventory_deployactions_commandstatus`
          WHERE id = $newId";
 $qry  = $DB->query($sql);
 

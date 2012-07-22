@@ -80,12 +80,12 @@ if (isset ($_POST["id"]) && !$_POST['id']) {
    $data = array( 'type'                          => $_POST['type'],
                   'path'                          => $_POST['path'],
                   'value'                         => $_POST['value'],
-                  'plugin_fusinvdeploy_orders_id' => $order_id);
+                  'plugin_fusioninventory_deployorders_id' => $order_id);
 
 
    //get max previous ranking
    $sql_ranking = "SELECT ranking FROM ".$check->getTable()."
-      WHERE plugin_fusinvdeploy_orders_id = '$order_id' ORDER BY ranking DESC";
+      WHERE plugin_fusioninventory_deployorders_id = '$order_id' ORDER BY ranking DESC";
    $res_ranking = $DB->query($sql_ranking);
    if ($DB->numrows($res_ranking) == 0) $ranking = 0;
    else {

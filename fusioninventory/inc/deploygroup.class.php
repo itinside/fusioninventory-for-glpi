@@ -216,7 +216,7 @@ class PluginFusinvdeployGroup extends CommonDBTM {
       $rand = mt_rand();
 
       $query = "SELECT DISTINCT `itemtype`
-                FROM `glpi_plugin_fusinvdeploy_groups_staticdatas` as `staticdatas`
+                FROM `glpi_plugin_fusioninventory_deploygroups_staticdatas` as `staticdatas`
                 WHERE `staticdatas`.`groups_id` = '$groupID'
                 ORDER BY `itemtype`";
 
@@ -269,7 +269,7 @@ class PluginFusinvdeployGroup extends CommonDBTM {
                $itemtable = getTableForItemType($itemtype);
                $query = "SELECT `$itemtable`.*,
                                 `staticdatas`.`id` AS IDD
-                         FROM `glpi_plugin_fusinvdeploy_groups_staticdatas` as `staticdatas`,
+                         FROM `glpi_plugin_fusioninventory_deploygroups_staticdatas` as `staticdatas`,
                               `$itemtable`";
                $query .= " WHERE `$itemtable`.`id` = `staticdatas`.`items_id`
                                  AND `staticdatas`.`itemtype` = '$itemtype'
@@ -375,7 +375,7 @@ class PluginFusinvdeployGroup extends CommonDBTM {
       //get datas
       $dynamic_group = new PluginFusinvdeployGroup_Dynamicdata;
       $query = "SELECT *
-         FROM glpi_plugin_fusinvdeploy_groups_dynamicdatas
+         FROM glpi_plugin_fusioninventory_deploygroups_dynamicdatas
          WHERE groups_id = '$groupID'";
       $res = $DB->query($query);
       $num = $DB->numrows($res);
@@ -752,7 +752,7 @@ class PluginFusinvdeployGroup extends CommonDBTM {
       global $DB;
 
       $sql = " SELECT id, name
-               FROM glpi_plugin_fusinvdeploy_groups
+               FROM glpi_plugin_fusioninventory_deploygroups
                ORDER BY name";
 
       $res  = $DB->query($sql);
