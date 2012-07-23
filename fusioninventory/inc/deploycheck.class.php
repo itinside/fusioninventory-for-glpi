@@ -98,10 +98,10 @@ class PluginFusioninventoryDeployCheck extends CommonDBTM {
 
          $tmp['return'] = "error";
 
-	 if ($tmp['type'] == "fileSizeGreater" || $tmp['type'] == "fileSizeLower" || $tmp['type'] == "fileSizeEquals") {
+    if ($tmp['type'] == "fileSizeGreater" || $tmp['type'] == "fileSizeLower" || $tmp['type'] == "fileSizeEquals") {
 # according to the requirment, We want Bytes!
              $tmp['value'] *= 1024 * 1024;
-	 }
+    }
          $checks[] = $tmp;
       }
 
