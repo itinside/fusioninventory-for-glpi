@@ -59,11 +59,11 @@ class PluginFusioninventoryStaticmisc {
    static function task_methods() {
 
       $a_tasks = array();
-      $a_tasks[] = array('module'               => 'fusioninventory',
-                         'method'               => 'wakeonlan',
-                         'name'                 => _('Wake On LAN'),
+      $a_tasks[] = array('module'          => 'fusioninventory',
+                         'method'          => 'wakeonlan',
+                         'name'            => _('Wake On LAN'),
 
-                         'use_rest'             => false);
+                         'use_rest'        => false);
 
       $a_tasks[] =  array('module'         => 'fusioninventory',
                           'method'         => 'inventory',
@@ -73,24 +73,24 @@ class PluginFusioninventoryStaticmisc {
 
                           'use_rest'       => false);
 
-      $a_tasks[] = array('module'        => 'fusioninventory',
-                         'method'         => 'ESX',
-                         'selection_type' => 'devices',
-                         'name'           => _('VMware host remote inventory'),
+      $a_tasks[] = array('module'          => 'fusioninventory',
+                         'method'          => 'ESX',
+                         'selection_type'  => 'devices',
+                         'name'            => _('VMware host remote inventory'),
 
-                         'use_rest'       => true);
+                         'use_rest'        => true);
 
-      $a_tasks[] = array('module'        => 'fusioninventory',
-                         'method'         => self::DEPLOYMETHOD_INSTALL,
-                         'name'           => _('Package deployment'),
+      $a_tasks[] = array('module'          => 'fusioninventory',
+                         'method'          => self::DEPLOYMETHOD_INSTALL,
+                         'name'            => _('Package deployment'),
 
-                         'use_rest'       => true);
+                         'use_rest'        => true);
 
-      $a_tasks[] = array('module'        => 'fusioninventory',
-                         'method'         => self::DEPLOYMETHOD_UNINSTALL,
-                         'name'           => _('Package uninstall'),
+      $a_tasks[] = array('module'          => 'fusioninventory',
+                         'method'          => self::DEPLOYMETHOD_UNINSTALL,
+                         'name'            => _('Package uninstall'),
 
-                         'use_rest'       => true);
+                         'use_rest'        => true);
 
       return $a_tasks;
    }
