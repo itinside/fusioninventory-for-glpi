@@ -23,7 +23,7 @@ class FileTest extends PHPUnit_Framework_TestCase
    {
       $this->cleanUp();
 
-      $PluginFusioninventoryDeployFile = new PluginFusinvdeployFile();
+      $PluginFusioninventoryDeployFile = new PluginFusioninventoryDeployFile();
       $this->assertEquals($PluginFusioninventoryDeployFile->getDirBySha512("aezfesf"), "a/ae");
 
       if (!file_exists(GLPI_PLUGIN_DOC_DIR."/fusinvdeploy/")) {
