@@ -82,8 +82,6 @@ if ($plugin->isActivated('fusinvdeploy')) {
              $json_response = json_encode($response);
          }
 
-         if (isset($_GET['debug'])) $json_response = PluginFusinvdeployStaticmisc::json_indent($json_response);
-
          echo $json_response;
       }
    }
