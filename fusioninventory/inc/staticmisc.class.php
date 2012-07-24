@@ -46,6 +46,9 @@ if (!defined('GLPI_ROOT')) {
 
 class PluginFusioninventoryStaticmisc {
 
+   const DEPLOYMETHOD_INSTALL   = 'deployinstall';
+   const DEPLOYMETHOD_UNINSTALL = 'deployuninstall';
+
    /**
    * Get task methods of this plugin fusioninventory
    *
@@ -74,6 +77,18 @@ class PluginFusioninventoryStaticmisc {
                          'method'         => 'ESX',
                          'selection_type' => 'devices',
                          'name'           => _('VMware host remote inventory'),
+
+                         'use_rest'       => true);
+
+      $a_tasks[] = array('module'        => 'fusioninventory',
+                         'method'         => self::DEPLOYMETHOD_INSTALL,
+                         'name'           => _('Package deployment'),
+
+                         'use_rest'       => true);
+
+      $a_tasks[] = array('module'        => 'fusioninventory',
+                         'method'         => self::DEPLOYMETHOD_UNINSTALL,
+                         'name'           => _('Package uninstall'),
 
                          'use_rest'       => true);
 

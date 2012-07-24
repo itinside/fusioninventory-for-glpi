@@ -49,43 +49,6 @@ class PluginFusioninventoryDeployStaticmisc {
    const DEPLOYMETHOD_INSTALL   = 'deployinstall';
    const DEPLOYMETHOD_UNINSTALL = 'deployuninstall';
 
-   static function task_methods() {
-
-      return array(array('module'         => 'fusinvdeploy',
-                         'method'         => self::DEPLOYMETHOD_INSTALL,
-                         'name'           => _('Package deployment'),
-
-                         'task'           => "DEPLOY",
-                         'use_rest'       => true),
-                   array('module'         => 'fusinvdeploy',
-                         'method'         => self::DEPLOYMETHOD_UNINSTALL,
-                         'name'           => _('Package uninstall'),
-
-                         'task'           => "DEPLOY",
-                         'use_rest'       => true)
-                         );
-   }
-
-   static function getItemtypeActions() {
-      return array('PluginFusioninventoryDeployPackage');
-   }
-   /*
-   # Actions with itemtype autorized
-   static function task_action_deploy_install() {
-      return self::getItemtypeActions();
-   }
-
-   # Actions with itemtype autorized
-   static function task_action_deploy_uninstall() {
-      return self::getItemtypeActions();
-   }*/
-
-   static function getDefinitionType() {
-      return array(0 => Dropdown::EMPTY_VALUE,
-                   'PluginFusioninventoryDeployPackage' => _('Package'));
-
-   }
-
    static function getActionType() {
       return array(0 => Dropdown::EMPTY_VALUE,
                    'PluginFusioninventoryDeployGroup' => _('Group of computers'),
@@ -98,11 +61,13 @@ class PluginFusioninventoryDeployStaticmisc {
    }
 
    static function task_definitiontype_deployinstall($a_itemtype) {
-      return self::getDefinitionType();
+      return array(0 => Dropdown::EMPTY_VALUE,
+                   'PluginFusioninventoryDeployPackage' => _('Package'));
    }
 
    static function task_definitiontype_deployuninstall($a_itemtype) {
-      return self::getDefinitionType();
+      return array(0 => Dropdown::EMPTY_VALUE,
+                   'PluginFusioninventoryDeployPackage' => _('Package'));
    }
 
    static function task_actiontype_deployinstall($a_itemtype) {
