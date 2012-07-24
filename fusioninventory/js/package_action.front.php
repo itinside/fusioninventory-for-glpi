@@ -71,7 +71,7 @@ $form_message4 = str_replace(
    '##URL##',
    GLPI_ROOT."/plugins/fusioninventory/front/config.form.php"
             ."?itemtype=pluginfusioninventoryconfig"
-            ."&glpi_tab=PluginFusinvdeployConfig$1",
+            ."&glpi_tab=PluginFusioninventoryDeployConfig$1",
    _('Paths on MS Windows do not accept more than 255 characters, the value you entered exceeds the limit.<br /><br /><b>Do you want to continue?</b><br /><br /><div class='message_smalltext right'>You can disable this message in the <a href='##URL##'>plugin configuration</a></div>')
 
 );
@@ -164,17 +164,17 @@ var {$render}actionColumns =  [{
 //define renderer for grid columns
 function {$render}renderType(val) {
    switch(val) {
-      case 'PluginFusinvdeployAction_Command':
+      case 'PluginFusioninventoryDeployAction_Command':
          return '{_('Execute a command')}';
-      case 'PluginFusinvdeployAction_Move':
+      case 'PluginFusioninventoryDeployAction_Move':
          return '{_('Move a file')}';
-      case 'PluginFusinvdeployAction_Copy':
+      case 'PluginFusioninventoryDeployAction_Copy':
          return '{_('Copy a file')}';
-      case 'PluginFusinvdeployAction_Delete':
+      case 'PluginFusioninventoryDeployAction_Delete':
          return '{_('Delete a file')}';
-      case 'PluginFusinvdeployAction_Mkdir':
+      case 'PluginFusioninventoryDeployAction_Mkdir':
          return '{_('Make a directory')}';
-      case 'PluginFusinvdeployAction_Message':
+      case 'PluginFusioninventoryDeployAction_Message':
          return '{_('Show dialog')}';
       default:
          return '';
@@ -447,7 +447,7 @@ var {$render}Command_fieldset_item_default = [{
    }
 ];
 
-var {$render}Command_fieldset_item_PluginFusinvdeployAction_Command = [{
+var {$render}Command_fieldset_item_PluginFusioninventoryDeployAction_Command = [{
       fieldLabel: '{_('Command')}',
       name: '{$render}exec',
       xtype:  'textarea',
@@ -456,7 +456,7 @@ var {$render}Command_fieldset_item_PluginFusinvdeployAction_Command = [{
    }
 ];
 
-var {$render}Command_fieldset_item_PluginFusinvdeployAction_Move = [{
+var {$render}Command_fieldset_item_PluginFusioninventoryDeployAction_Move = [{
       fieldLabel: '{_('From')}',
       name: '{$render}from',
       xtype: 'textarea',
@@ -469,7 +469,7 @@ var {$render}Command_fieldset_item_PluginFusinvdeployAction_Move = [{
    }
 ];
 
-var {$render}Command_fieldset_item_PluginFusinvdeployAction_Copy = [{
+var {$render}Command_fieldset_item_PluginFusioninventoryDeployAction_Copy = [{
       fieldLabel: '{_('From')}',
       name: '{$render}from',
       xtype: 'textarea',
@@ -482,7 +482,7 @@ var {$render}Command_fieldset_item_PluginFusinvdeployAction_Copy = [{
    }
 ];
 
-var {$render}Command_fieldset_item_PluginFusinvdeployAction_Delete = [{
+var {$render}Command_fieldset_item_PluginFusioninventoryDeployAction_Delete = [{
       fieldLabel: '{_('File')}',
       name: '{$render}path',
       xtype: 'textarea',
@@ -491,7 +491,7 @@ var {$render}Command_fieldset_item_PluginFusinvdeployAction_Delete = [{
    }
 ];
 
-var {$render}Command_fieldset_item_PluginFusinvdeployAction_Mkdir = [{
+var {$render}Command_fieldset_item_PluginFusioninventoryDeployAction_Mkdir = [{
       fieldLabel: '{_('Name')}',
       name: '{$render}path',
       xtype: 'textarea',
@@ -500,7 +500,7 @@ var {$render}Command_fieldset_item_PluginFusinvdeployAction_Mkdir = [{
    }
 ];
 
-var {$render}Command_fieldset_item_PluginFusinvdeployAction_Message = [{
+var {$render}Command_fieldset_item_PluginFusioninventoryDeployAction_Message = [{
       fieldLabel: '{_('Title')}',
       name: '{$render}messagename',
       xtype: 'textfield'
@@ -557,23 +557,23 @@ function {$render}Command_refreshDynFieldset(val) {
    {$render}actionForm.remove({$render}ActionGridRetChecks);
 
    switch(val) {
-      case 'PluginFusinvdeployAction_Command':
-         {$render}Command_dynFieldset.add({$render}Command_fieldset_item_PluginFusinvdeployAction_Command);
+      case 'PluginFusioninventoryDeployAction_Command':
+         {$render}Command_dynFieldset.add({$render}Command_fieldset_item_PluginFusioninventoryDeployAction_Command);
          break;
-      case 'PluginFusinvdeployAction_Move':
-         {$render}Command_dynFieldset.add({$render}Command_fieldset_item_PluginFusinvdeployAction_Move);
+      case 'PluginFusioninventoryDeployAction_Move':
+         {$render}Command_dynFieldset.add({$render}Command_fieldset_item_PluginFusioninventoryDeployAction_Move);
          break;
-      case 'PluginFusinvdeployAction_Copy':
-         {$render}Command_dynFieldset.add({$render}Command_fieldset_item_PluginFusinvdeployAction_Copy);
+      case 'PluginFusioninventoryDeployAction_Copy':
+         {$render}Command_dynFieldset.add({$render}Command_fieldset_item_PluginFusioninventoryDeployAction_Copy);
          break;
-      case 'PluginFusinvdeployAction_Delete':
-         {$render}Command_dynFieldset.add({$render}Command_fieldset_item_PluginFusinvdeployAction_Delete);
+      case 'PluginFusioninventoryDeployAction_Delete':
+         {$render}Command_dynFieldset.add({$render}Command_fieldset_item_PluginFusioninventoryDeployAction_Delete);
          break;
-      case 'PluginFusinvdeployAction_Mkdir':
-         {$render}Command_dynFieldset.add({$render}Command_fieldset_item_PluginFusinvdeployAction_Mkdir);
+      case 'PluginFusioninventoryDeployAction_Mkdir':
+         {$render}Command_dynFieldset.add({$render}Command_fieldset_item_PluginFusioninventoryDeployAction_Mkdir);
          break;
-      /*case 'PluginFusinvdeployAction_Message':
-         {$render}Command_dynFieldset.add({$render}Command_fieldset_item_PluginFusinvdeployAction_Message);*/
+      /*case 'PluginFusioninventoryDeployAction_Message':
+         {$render}Command_dynFieldset.add({$render}Command_fieldset_item_PluginFusioninventoryDeployAction_Message);*/
          break;
       default:
          {$render}Command_dynFieldset.add({$render}Command_fieldset_item_default);
@@ -635,12 +635,12 @@ var {$render}actionForm = new Ext.FormPanel({
       store: new Ext.data.ArrayStore({
          fields: ['name', 'value'],
          data: [
-            ['PluginFusinvdeployAction_Command', '{_('Execute a command')}'],
-            ['PluginFusinvdeployAction_Move',    '{_('Move a file')}'],
-            ['PluginFusinvdeployAction_Copy',    '{_('Copy a file')}'],
-            ['PluginFusinvdeployAction_Delete',  '{_('Delete a file')}'],
-            ['PluginFusinvdeployAction_Mkdir',   '{_('Make a directory')}']/*,
-            ['PluginFusinvdeployAction_Message', '{_('Show dialog')}']*/
+            ['PluginFusioninventoryDeployAction_Command', '{_('Execute a command')}'],
+            ['PluginFusioninventoryDeployAction_Move',    '{_('Move a file')}'],
+            ['PluginFusioninventoryDeployAction_Copy',    '{_('Copy a file')}'],
+            ['PluginFusioninventoryDeployAction_Delete',  '{_('Delete a file')}'],
+            ['PluginFusioninventoryDeployAction_Mkdir',   '{_('Make a directory')}']/*,
+            ['PluginFusioninventoryDeployAction_Message', '{_('Show dialog')}']*/
          ]
       }),
       mode: 'local',
@@ -693,7 +693,7 @@ var {$render}actionForm = new Ext.FormPanel({
       {$render}Command_refreshDynFieldset(rec.data.{$render}itemtype);
       {$render}actionForm.getForm().loadRecord(rec);
 
-      if (rec.data.{$render}itemtype == 'PluginFusinvdeployAction_Command') {
+      if (rec.data.{$render}itemtype == 'PluginFusioninventoryDeployAction_Command') {
          refreshRetChecks()
       }
    }

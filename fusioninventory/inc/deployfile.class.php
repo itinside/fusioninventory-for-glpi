@@ -233,7 +233,7 @@ class PluginFusioninventoryDeployFile extends CommonDBTM {
 
       set_time_limit(600);
 
-      $PluginFusioninventoryDeployFilepart = new PluginFusinvdeployFilepart();
+      $PluginFusioninventoryDeployFilepart = new PluginFusioninventoryDeployFilepart();
 
       $filename = addslashes($params['filename']);
       $file_tmp_name = $params['file_tmp_name'];
@@ -369,7 +369,7 @@ class PluginFusioninventoryDeployFile extends CommonDBTM {
 
       $repoPath = GLPI_PLUGIN_DOC_DIR."/fusinvdeploy/files/repository/";
 
-      $PluginFusioninventoryDeployFilepart = new PluginFusinvdeployFilepart();
+      $PluginFusioninventoryDeployFilepart = new PluginFusioninventoryDeployFilepart();
 
       // Retrieve file informations
       $this->getFromDB($id);

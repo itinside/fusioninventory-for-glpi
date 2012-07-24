@@ -137,7 +137,7 @@ function renderActionSelection(val, metaData, record) {
       case 'Computer':
          var img = '<img src="../pics/ext/computer.png">&nbsp;';
          break;
-      case 'PluginFusinvdeployGroup':
+      case 'PluginFusioninventoryDeployGroup':
          var img = '<img src="../pics/ext/group.png">&nbsp;';
          break;
       case 'Group':

@@ -42,7 +42,7 @@
 
 
 //get const check class for use in heredoc
-$refl = new ReflectionClass('PluginFusinvdeployState');
+$refl = new ReflectionClass('PluginFusioninventoryDeployState');
 $stateConst = $refl->getConstants();
 
 $width_left                  = 550;

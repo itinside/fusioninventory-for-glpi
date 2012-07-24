@@ -47,7 +47,7 @@ Session::checkLoginUser();
 header("Content-Type: text/html; charset=UTF-8");
 Html::header_nocache();
 
-$PluginFusioninventoryDeployFile = new PluginFusinvdeployFile();
+$PluginFusioninventoryDeployFile = new PluginFusioninventoryDeployFile();
 
 if(isset($_GET['package_id'])){
    $package_id = $_GET['package_id'];

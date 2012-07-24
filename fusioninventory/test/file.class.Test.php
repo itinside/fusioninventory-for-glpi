@@ -19,12 +19,12 @@ class FileTest extends PHPUnit_Framework_TestCase
 
    }
 
-   public function testPluginFusinvdeployFile()
+   public function testPluginFusioninventoryDeployFile()
    {
       $this->cleanUp();
 
-      $PluginFusinvdeployFile = new PluginFusinvdeployFile();
-      $this->assertEquals($PluginFusinvdeployFile->getDirBySha512("aezfesf"), "a/ae");
+      $PluginFusioninventoryDeployFile = new PluginFusinvdeployFile();
+      $this->assertEquals($PluginFusioninventoryDeployFile->getDirBySha512("aezfesf"), "a/ae");
 
       if (!file_exists(GLPI_PLUGIN_DOC_DIR."/fusinvdeploy/")) {
          mkdir (GLPI_PLUGIN_DOC_DIR."/fusinvdeploy/", 0700, 1);
@@ -33,7 +33,7 @@ class FileTest extends PHPUnit_Framework_TestCase
       touch(GLPI_PLUGIN_DOC_DIR."/fusinvdeploy/tmp-file");
 
 
-      $file_id = $PluginFusinvdeployFile->addFileInRepo(array(
+      $file_id = $PluginFusioninventoryDeployFile->addFileInRepo(array(
                'filename' => GLPI_PLUGIN_DOC_DIR."/fusinvdeploy/tmp-file",
                'file_tmp_name' => GLPI_PLUGIN_DOC_DIR."/fusinvdeploy/tmp-file",
                'mime_type' => "text/plain",
@@ -49,7 +49,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 
       # Add the same file 2 time in a row
       touch(GLPI_PLUGIN_DOC_DIR."/fusinvdeploy/tmp-file");
-      $new_file_id = $PluginFusinvdeployFile->addFileInRepo(array(
+      $new_file_id = $PluginFusioninventoryDeployFile->addFileInRepo(array(
                'filename' => GLPI_PLUGIN_DOC_DIR."/fusinvdeploy/tmp-file",
                'file_tmp_name' => GLPI_PLUGIN_DOC_DIR."/fusinvdeploy/tmp-file",
                'mime_type' => "text/plain",
@@ -69,7 +69,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 
 
 
-      $file_id = $PluginFusinvdeployFile->addFileInRepo(array(
+      $file_id = $PluginFusioninventoryDeployFile->addFileInRepo(array(
                'filename' => GLPI_PLUGIN_DOC_DIR."/fusinvdeploy/tmp-big-file",
                'file_tmp_name' => GLPI_PLUGIN_DOC_DIR."/fusinvdeploy/tmp-big-file",
                'mime_type' => "text/plain",

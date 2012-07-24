@@ -59,10 +59,10 @@ $label_width = 120;
 // END - Size of div/form/label...
 
 //get max upload file size
-$maxUpload = PluginFusinvdeployFile::getMaxUploadSize();
+$maxUpload = PluginFusioninventoryDeployFile::getMaxUploadSize();
 
 //get the file extensions that have an action to automatically add
-$files_autoactions = json_encode(PluginFusinvdeployFile::getExtensionsWithAutoAction());
+$files_autoactions = json_encode(PluginFusioninventoryDeployFile::getExtensionsWithAutoAction());
 
 
 // Render div
@@ -644,7 +644,7 @@ var {$render}AddActionsAuto = function(filename) {
                   url: '../ajax/package_action.save.php?package_id={$_REQUEST["id"]}&render=install',
                   params: {
                      installexec: install_a,
-                     installitemtype: 'PluginFusinvdeployAction_Command',
+                     installitemtype: 'PluginFusioninventoryDeployAction_Command',
                      installid: ''
                   },
                   success: function(){
@@ -653,7 +653,7 @@ var {$render}AddActionsAuto = function(filename) {
                         url: '../ajax/package_action.save.php?package_id={$_REQUEST["id"]}&render=uninstall',
                         params: {
                            uninstallexec: uninstall_a,
-                           uninstallitemtype: 'PluginFusinvdeployAction_Command',
+                           uninstallitemtype: 'PluginFusioninventoryDeployAction_Command',
                            uninstallid: ''
                         },
                         success: function(){

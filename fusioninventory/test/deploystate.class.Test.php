@@ -8,7 +8,7 @@ require_once (GLPI_ROOT."/inc/includes.php");
 
 class DeploystateTest extends PHPUnit_Framework_TestCase
 {
-   public function testPluginFusinvdeployState() {
+   public function testPluginFusioninventoryDeployState() {
       global $DB;
 
       //create fake agent
@@ -23,7 +23,7 @@ class DeploystateTest extends PHPUnit_Framework_TestCase
       ));*/
 
       //create tmp package
-      $package = new PluginFusinvdeployPackage;
+      $package = new PluginFusioninventoryDeployPackage;
       if (!$package->getFromDB(1)) {
          $package_id = $package->add(array(
             'name' => "testunit_package",
@@ -33,7 +33,7 @@ class DeploystateTest extends PHPUnit_Framework_TestCase
       } else $package_id = 1;
 
       //create tmp task
-      $task = new PluginFusinvdeployTask;
+      $task = new PluginFusioninventoryDeployTask;
       $task_id = $task->add(array(
          'name' => "testunit_task",
          'entities_id' => 0,
@@ -44,13 +44,13 @@ class DeploystateTest extends PHPUnit_Framework_TestCase
       ));
 
       //create a job for previous task
-      $taskjob = new PluginFusinvdeployTaskjob;
+      $taskjob = new PluginFusioninventoryDeployTaskjob;
       $taskjob_id = $taskjob->add(array(
          'plugin_fusinvdeploy_tasks_id' => $task_id,
          'entities_id' => 0,
          'name' => "testunit_taskjob",
          'method' => "deployinstall",
-         'definition' => '[{"PluginFusinvdeployPackage":"'.$package_id.'"}]',
+         'definition' => '[{"PluginFusioninventoryDeployPackage":"'.$package_id.'"}]',
          'action' => '[{"Computer":"1"}]'
       ));
 

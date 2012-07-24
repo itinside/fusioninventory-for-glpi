@@ -8,7 +8,7 @@ require_once (GLPI_ROOT."/inc/includes.php");
 
 class GroupTest extends PHPUnit_Framework_TestCase
 {
-   public function testPluginFusinvdeployGroup() {
+   public function testPluginFusioninventoryDeployGroup() {
       global $DB;
 
       //remove old test group
@@ -16,7 +16,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
       $res = $DB->query($query);
 
       //test static group
-      $static_group = new PluginFusinvdeployGroup();
+      $static_group = new PluginFusioninventoryDeployGroup();
       $static_groupID = $static_group->add(array(
          'name'      => "UNITTEST_STATIC_GROUP",
          'comment'   => "UNITTEST",
@@ -27,7 +27,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
       $this->assertEquals($DB->numrows($res), 1);
 
       //test static group datas
-      $group_item = new PluginFusinvdeployGroup_Staticdata();
+      $group_item = new PluginFusioninventoryDeployGroup_Staticdata();
       $query = "SELECT id FROM glpi_computers LIMIT 50";
       $res = $DB->query($query);
       $items = array();
@@ -49,7 +49,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
 
 
       //test dynamic group
-      $dynamic_group = new PluginFusinvdeployGroup();
+      $dynamic_group = new PluginFusioninventoryDeployGroup();
       $dynamic_groupID = $dynamic_group->add(array(
          'name'      => "UNITTEST_DYNAMIC_GROUP",
          'comment'   => "UNITTEST",
@@ -62,7 +62,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
 
 
       //test static group datas
-      $group_item = new PluginFusinvdeployGroup_Dynamicdata();
+      $group_item = new PluginFusioninventoryDeployGroup_Dynamicdata();
       $fields_array = array(
          'itemtype'     => "Computer",
          'start'        => 0,
@@ -84,7 +84,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
 
       //test get json group
 
-      $json = PluginFusinvdeployGroup::getAllDatas();
+      $json = PluginFusioninventoryDeployGroup::getAllDatas();
       $datas = get_object_vars(json_decode($json));
       $this->assertArrayHasKey('groups', $datas);
       $query = "SELECT * FROM glpi_plugin_fusinvdeploy_groups";

@@ -44,7 +44,7 @@ if(!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-class PluginFusioninventoryDeployDeployinstall extends PluginFusinvdeployDeployCommon {
+class PluginFusioninventoryDeployDeployinstall extends PluginFusioninventoryDeployDeployCommon {
    var $task = 'deployinstall';
 
    function prepareRun($taskjobs_id) {

@@ -42,7 +42,7 @@
 
 
 //get const check class for use in heredoc
-$refl = new ReflectionClass('PluginFusinvdeployCheck');
+$refl = new ReflectionClass('PluginFusioninventoryDeployCheck');
 $chkConst = $refl->getConstants();
 
 // Size of div/form/label...
@@ -65,11 +65,11 @@ $label_width = 95;
 // Render div
 
 if(isset($_POST["glpi_tab"])) {
-   if (strpos($_POST["glpi_tab"], 'PluginFusinvdeployInstall') !== false) {
+   if (strpos($_POST["glpi_tab"], 'PluginFusioninventoryDeployInstall') !== false) {
       $render = "install";
       $title2 = _('before installation');
 
-   } elseif (strpos($_POST["glpi_tab"], 'PluginFusinvdeployUninstall') !== false) {
+   } elseif (strpos($_POST["glpi_tab"], 'PluginFusioninventoryDeployUninstall') !== false) {
       $render = "uninstall";
       $title2 = _('before uninstallation');
 

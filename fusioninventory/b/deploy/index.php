@@ -51,16 +51,16 @@ if ($plugin->isActivated('fusinvdeploy')) {
       switch ($_GET['action']) {
          //Get jobs to perform
          case 'getJobs':
-            $response['jobs'] = PluginFusinvdeployJob::get($_GET['machineid']);
+            $response['jobs'] = PluginFusioninventoryDeployJob::get($_GET['machineid']);
             if (!$response['jobs']) {
                echo "{}\n"; # Empty answer
                exit;
             }
-            $response['associatedFiles']  = PluginFusinvdeployFile::getAssociatedFiles($_GET['machineid']);
+            $response['associatedFiles']  = PluginFusioninventoryDeployFile::getAssociatedFiles($_GET['machineid']);
             break;
          //Change job status
          case 'setStatus':
-            $response = PluginFusinvdeployJob::update($_GET, true);
+            $response = PluginFusioninventoryDeployJob::update($_GET, true);
             break;
          default:
             header("HTTP/1.1 500");
@@ -86,7 +86,7 @@ if ($plugin->isActivated('fusinvdeploy')) {
       }
    }
    elseif (isset($_GET['action']) && $_GET['action'] == 'getFilePart') {
-      PluginFusinvdeployFilepart::httpSendFile($_GET);
+      PluginFusioninventoryDeployFilepart::httpSendFile($_GET);
    }
 } else {
    //Send an error if Fusinvdeploy plugin is not activated !
