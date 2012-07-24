@@ -113,6 +113,16 @@ class PluginFusioninventoryStaticmisc {
       return $a_itemtype;
    }
 
+   static function task_definitiontype_deployinstall($a_itemtype) {
+      return array(0 => Dropdown::EMPTY_VALUE,
+                   'PluginFusioninventoryDeployPackage' => _('Package'));
+   }
+
+   static function task_definitiontype_deployuninstall($a_itemtype) {
+      return array(0 => Dropdown::EMPTY_VALUE,
+                   'PluginFusioninventoryDeployPackage' => _('Package'));
+   }
+
 
 
    /**
@@ -273,6 +283,28 @@ class PluginFusioninventoryStaticmisc {
 
 
    //------------------------------------------ Actions-------------------------------------//
+
+   static function getDeployActionType() {
+      return array(0 => Dropdown::EMPTY_VALUE,
+                   'PluginFusioninventoryDeployGroup' => _('Group of computers'),
+
+                   'Computer' => _('Computers'),
+
+                   'Group' => _('Group')
+
+                  );
+   }
+
+   static function task_actiontype_deployinstall($a_itemtype) {
+      return self::getDeployActionType();
+   }
+
+   static function task_actiontype_deployuninstall($a_itemtype) {
+      return self::getDeployActionType();
+   }
+
+
+
 
    static function task_actiontype_ESX($a_itemtype) {
       return array ('' => Dropdown::EMPTY_VALUE ,
