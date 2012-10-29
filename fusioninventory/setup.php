@@ -46,6 +46,28 @@ define ("PLUGIN_FUSIONINVENTORY_OFFICIAL_RELEASE","0");
 define ("PLUGIN_FUSIONINVENTORY_REALVERSION","0.83+2.0 SNAPSHOT");
 include_once(GLPI_ROOT."/inc/includes.php");
 
+
+function dirMd5($dir) {
+   if (!is_dir($dir)) {
+      return false;
+   }
+
+   $filemd5s = array();
+   $d = dir($dir);
+
+   while (false !== ($entry = $d->read())) {
+      if ($entry != '.' && $entry != '..') {
+         if (is_dir($dir.'/'.$entry)) {
+            $filemd5s[] = dirMd5($dir.'/'.$entry);
+         } else {
+            $filemd5s[] = md5_file($dir.'/'.$entry);
+         }
+      }
+   }
+   $d->close();
+   return md5(implode('', $filemd5s));
+}
+
 // Init the hooks of fusioninventory
 function plugin_init_fusioninventory() {
    global $PLUGIN_HOOKS,$CFG_GLPI,$LANG;
@@ -279,7 +301,7 @@ function plugin_init_fusioninventory() {
 function plugin_version_fusioninventory() {
    return array('name'           => 'FusionInventory',
                 'shortname'      => 'fusioninventory',
-                'version'        => PLUGIN_FUSIONINVENTORY_VERSION,
+                'version'        => PLUGIN_FUSIONINVENTORY_VERSION." md5".dirMd5('.'),
                 'license'        => 'AGPLv3+',
                 'oldname'        => 'tracker',
                 'author'         =>'<a href="mailto:d.durieux@siprossii.com">David DURIEUX</a>
