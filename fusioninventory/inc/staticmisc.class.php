@@ -214,7 +214,11 @@ class PluginFusioninventoryStaticmisc {
                           'name'    => __('Printers report', 'fusioninventory')),
 
                    array('profil'  => 'reportnetworkequipment',
-                          'name'    => __('Network report')));
+                          'name'    => __('Network report')),
+
+                   array('profil'  => 'collect',
+                          'name'    => __('Additional computer information finder', 'fusioninventory'))
+      );
 
 
    }

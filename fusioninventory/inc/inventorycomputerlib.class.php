@@ -964,6 +964,7 @@ class PluginFusioninventoryInventoryComputerLib extends CommonDBTM {
 
       // * Batteries
          /* Standby, see ticket http://forge.fusioninventory.org/issues/1907
+         // TODO : GLB: this is duplicated code with Antivirus
          $db_batteries = array();
          if ($no_history === false) {
             $query = "SELECT `id`, `name`, `serial` 

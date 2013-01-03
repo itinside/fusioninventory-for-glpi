@@ -232,6 +232,7 @@ function plugin_init_fusioninventory() {
          $PLUGIN_HOOKS['headings_action']['fusioninventory'] = 'plugin_headings_actions_fusioninventory';
 
          // Icons add, search...
+         $PLUGIN_HOOKS['submenu_entry']['fusioninventory']['add']['collect'] = 'front/inventorycomputercollect.form.php?add=1';
          $PLUGIN_HOOKS['submenu_entry']['fusioninventory']['add']['tasks'] = 'front/task.form.php?add=1';
          $PLUGIN_HOOKS['submenu_entry']['fusioninventory']['search']['tasks'] = 'front/task.php';
 
