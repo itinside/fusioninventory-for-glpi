@@ -49,6 +49,14 @@ class PluginFusioninventoryInventoryComputerCollectContent extends CommonDBTM {
    // From CommonDBChild
    public $dohistory = true;
 
+   public static $hives = array(
+      "HKEY_CLASSES_ROOT",
+      "HKEY_CURRENT_USER",
+      "HKEY_LOCAL_MACHINE",
+      "HKEY_USERS",
+      "HKEY_CURRENT_CONFIG",
+      "HKEY_DYN_DATA"
+   );
 
 
    
@@ -91,17 +99,8 @@ class PluginFusioninventoryInventoryComputerCollectContent extends CommonDBTM {
    private function showAssociatedRegistryKeys($content){
       global $DB, $CFG_GLPI, $LANG;
 
-      $hives = array(
-         "HKEY_CLASSES_ROOT",
-         "HKEY_CURRENT_USER",
-         "HKEY_LOCAL_MACHINE",
-         "HKEY_USERS",
-         "HKEY_CURRENT_CONFIG",
-         "HKEY_DYN_DATA"
-      );
-
       echo "<div class='spaced'><table class='tab_cadre_fixe'>";
-      echo "<tr><th colspan=5>".__('Content')."</th></tr>";
+      echo "<tr><th colspan=5>".__('Content', 'fusioninventory')."</th></tr>";
       echo "<tr>
       <th>".__("Name")."</th>
       <th>".__("Hive", "fusioninventory")."</th>
@@ -113,10 +112,10 @@ class PluginFusioninventoryInventoryComputerCollectContent extends CommonDBTM {
 
          //hack on unserialize bug
          $properties = PluginFusioninventoryInventoryComputerCollect::debugSerializedContent($data['details']);
-         
+         $t = self::$hives;
          echo "<td align='center'>{$data['name']}</td>";
          echo "<td align='center'>
-         {$hives[$properties['hives_id']]}</td>";
+         {$t[$properties['hives_id']]}</td>";
          echo "<td align='center'>{$properties['path']}</td>";
          echo "<td align='center'>{$properties['key']}</td>";
          echo "<td align='center'>
@@ -135,12 +134,12 @@ class PluginFusioninventoryInventoryComputerCollectContent extends CommonDBTM {
       global $DB, $CFG_GLPI, $LANG;
 
       echo "<div class='spaced'><table class='tab_cadre_fixe'>";
-      echo "<tr><th colspan=4>{$LANG['plugin_fusioninventory']['collect'][2]}</th></tr>";
+      echo "<tr><th colspan=4>".__('Content', 'fusioninventory')."</th></tr>";
       echo "<tr>
-      <th>{$LANG['plugin_fusioninventory']['collect']['fields'][2]}</th>
-      <th>{$LANG['plugin_fusioninventory']['collect']['fields'][4]}</th>
-      <th>{$LANG['plugin_fusioninventory']['collect']['fields'][5]}</th>
-      <th>{$LANG['rulesengine'][30]}</th>
+      <th>".__("Name", "fusioninventory")."</th>
+      <th>".__("Class", "fusioninventory")."</th>
+      <th>".__("Property", "fusioninventory")."</th>
+      <th>".__("Action")."</th>
       </tr>";
       foreach($content as $data){
         
@@ -162,16 +161,16 @@ class PluginFusioninventoryInventoryComputerCollectContent extends CommonDBTM {
    }
 
    private function showAssociatedFiles($content){
-      global $DB, $CFG_GLPI, $LANG;
+      global $DB, $CFG_GLPI;
 
       echo "<div class='spaced'><table class='tab_cadre_fixe'>";
-      echo "<tr><th colspan=5>{$LANG['plugin_fusioninventory']['collect'][2]}</th></tr>";
+      echo "<tr><th colspan=5>".__("Content","fusioninventory")."</th></tr>";
       echo "<tr>
-      <th>{$LANG['plugin_fusioninventory']['collect']['fields'][2]}</th>
-      <th>{$LANG['plugin_fusioninventory']['collect']['fields'][1]}</th>
-      <th>{$LANG['plugin_fusioninventory']['collect']['fields'][6]}</th>
-      <th>{$LANG['plugin_fusioninventory']['collect']['fields'][7]}</th>
-      <th>{$LANG['rulesengine'][30]}</th>
+      <th>".__("Name")."</th>
+      <th>".__("Path", "fusioninventory")."</th>
+      <th>".__("Filename", "fusioninventory")."</th>
+      <th>".__("Get content?", "fusioninventory")."</th>
+      <th>".__("Action")."</th>
       </tr>";
       foreach($content as $data){
         
@@ -194,15 +193,15 @@ class PluginFusioninventoryInventoryComputerCollectContent extends CommonDBTM {
    }
 
    private function showAssociatedCommands($content){
-      global $DB, $CFG_GLPI, $LANG;
+      global $DB, $CFG_GLPI;
 
       echo "<div class='spaced'><table class='tab_cadre_fixe'>";
       echo "<tr><th colspan=4>{$LANG['plugin_fusioninventory']['collect'][2]}</th></tr>";
       echo "<tr>
-      <th>{$LANG['plugin_fusioninventory']['collect']['fields'][2]}</th>
-      <th>{$LANG['plugin_fusioninventory']['collect']['fields'][1]}</th>
-      <th>{$LANG['plugin_fusioninventory']['collect']['fields'][8]}</th>
-      <th>{$LANG['rulesengine'][30]}</th>
+      <th>".__("Name")."</th>
+      <th>".__("Path", "fusioninventory")."</th>
+      <th>".__("Command", "fusioninventory")."</th>
+      <th>".__("Action")."</th>
       </tr>";
       foreach($content as $data){
         
@@ -284,11 +283,8 @@ class PluginFusioninventoryInventoryComputerCollectContent extends CommonDBTM {
             //Hive
             echo "<td>".__("Hive", "fusioninventory")."&nbsp;:</td>";
             echo "<td>";
-            $hives = array(0 => 'HKEY_CLASSES_ROOT',1 => 'HKEY_CURRENT_USER',
-                           2 => 'HKEY_LOCAL_MACHINE',3 => 'HKEY_USERS',
-                           4 => 'HKEY_CURRENT_CONFIG', 5 => 'HKEY_DYN_DATA' );
 
-            Dropdown::showFromArray("hives_id", $hives);
+            Dropdown::showFromArray("hives_id", self::$hives);
             echo "</td></tr>";
             //Path
             echo "<tr class='tab_bg_1'>";

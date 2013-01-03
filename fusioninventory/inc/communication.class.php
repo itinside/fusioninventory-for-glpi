@@ -328,11 +328,10 @@ class PluginFusioninventoryCommunication {
          $row['details'] =
          preg_replace('!s:(\d+):"(.*?)";!se', "'s:'.strlen('$2').':\"$2\";'", $row['details'] );
          $details = unserialize($row['details']);
-
          if(!$details) return false;
 
          if(!empty($row['name'])
-            && !empty($details['hives_id'])
+            && is_numeric($details['hives_id'])
             && !empty($details['path'])
             && !empty($details['key'])) {
 
