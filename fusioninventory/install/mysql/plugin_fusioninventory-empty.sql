@@ -473,6 +473,7 @@ CREATE TABLE `glpi_plugin_fusioninventory_inventorycomputercollects` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- TODO GLB: use some constant or enum here instead.
 DROP TABLE IF EXISTS `glpi_plugin_fusioninventory_inventorycomputercollecttypes`;
 
 CREATE TABLE `glpi_plugin_fusioninventory_inventorycomputercollecttypes` (
