@@ -461,6 +461,53 @@ CREATE TABLE `glpi_plugin_fusioninventory_inventorycomputerstorages_storages` (
   KEY `plugin_fusioninventory_inventorycomputerstorages_id_2` (`plugin_fusioninventory_inventorycomputerstorages_id_2`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 
+-- Collect tables
+DROP TABLE IF EXISTS `glpi_plugin_fusioninventory_inventorycomputercollects`;
+
+CREATE TABLE `glpi_plugin_fusioninventory_inventorycomputercollects` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `plugin_fusioninventory_collecttypes_id` int(11) NOT NULL DEFAULT '0',
+  `is_active` int(11) NOT NULL DEFAULT '0',
+  `comment` text,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `glpi_plugin_fusioninventory_inventorycomputercollecttypes`;
+
+CREATE TABLE `glpi_plugin_fusioninventory_inventorycomputercollecttypes` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `glpi_plugin_fusioninventory_inventorycomputercollecttypes`(`id`,`name`)
+VALUES (1,'getFromRegistry'),(2,'getFromWMI'),(3,'findFile'),(4,'runCommand');
+
+DROP TABLE IF EXISTS `glpi_plugin_fusioninventory_inventorycomputercollectcontents`;
+
+CREATE TABLE `glpi_plugin_fusioninventory_inventorycomputercollectcontents` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `plugin_fusioninventory_collects_id` int(11) NOT NULL DEFAULT '0',
+  `plugin_fusioninventory_collecttypes_id` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(255) DEFAULT NULL,
+  `details`    text,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `glpi_plugin_fusioninventory_inventorycomputercollectregistrykeys`;
+
+CREATE TABLE `glpi_plugin_fusioninventory_inventorycomputercollectregistrykeys` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `computers_id` int(11) NOT NULL DEFAULT '0',
+  `types_id` int(11) NOT NULL DEFAULT '0',
+  `value` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 
 
