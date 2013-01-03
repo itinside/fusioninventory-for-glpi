@@ -302,7 +302,7 @@ class PluginFusioninventoryCommunication {
 
       // Look for active getFromRegistry campaign.
       $collectObject = new PluginFusioninventoryInventoryComputerCollect();
-      $sqlCollectCampaign  = "plugin_fusioninventory_collecttypes_id = {$collecttypeId}";
+      $sqlCollectCampaign  = "plugin_fusioninventory_inventorycomputercollecttypes_id = {$collecttypeId}";
       $sqlCollectCampaign .= " AND is_active = 1";
       $resultCollectCampaign = $collectObject->find($sqlCollectCampaign);
 
@@ -314,8 +314,8 @@ class PluginFusioninventoryCommunication {
       }
 
       // Get all collect content datas
-      $collectContentObject = new PluginFusioninventoryCollectcontent();
-      $sqlActiveRegistry  = "plugin_fusioninventory_collects_id IN (";
+      $collectContentObject = new PluginFusioninventoryInventoryComputerCollectcontent();
+      $sqlActiveRegistry  = "plugin_fusioninventory_inventorycomputercollects_id IN (";
       $sqlActiveRegistry .= implode(',', $activeCampaignsId).")";
       $resultCollectContent = $collectContentObject->find($sqlActiveRegistry);
 
