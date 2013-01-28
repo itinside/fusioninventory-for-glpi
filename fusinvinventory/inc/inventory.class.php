@@ -228,6 +228,14 @@ class PluginFusinvinventoryInventory {
             $input['name'] = '';
          }
          $input['itemtype'] = "Computer";
+
+         //VM LINK
+         if (isset($xml->CONTENT->HARDWARE->VMSYSTEM)) {
+            $input['vmname'] = (string)$xml->CONTENT->HARDWARE->VMNAME;
+            $input['vmid']   = (string)$xml->CONTENT->HARDWARE->VMID;
+            $input['vmfull'] = (string)$xml->CONTENT->HARDWARE->VMID.":".
+                                       $xml->CONTENT->HARDWARE->VMNAME;
+         }
          
          // If transfer is disable, get entity and search only on this entity (see http://forge.fusioninventory.org/issues/1503)
          $pfConfig = new PluginFusioninventoryConfig();
@@ -250,6 +258,7 @@ class PluginFusinvinventoryInventory {
             }
          }
          // End transfer disabled
+      
          
       $_SESSION['plugin_fusioninventory_classrulepassed'] = "PluginFusinvinventoryInventory";
       $rule = new PluginFusioninventoryRuleImportEquipmentCollection();
@@ -257,6 +266,7 @@ class PluginFusinvinventoryInventory {
       $data = $rule->processAllRules($input, array(), array('class'=>$this));
       PluginFusioninventoryLogger::logIfExtradebug("pluginFusioninventory-rules", 
                                                    print_r($data, true));
+
       if (isset($data['_no_rule_matches']) AND ($data['_no_rule_matches'] == '1')) {
          $this->rulepassed(0, "Computer");
       } else if (!isset($data['found_equipment'])) {
@@ -305,6 +315,8 @@ class PluginFusinvinventoryInventory {
    *
    **/
    function rulepassed($items_id, $itemtype) {
+      global $DB;
+
       PluginFusioninventoryLogger::logIfExtradebug(
          "pluginFusioninventory-rules",
          "Rule passed : ".$items_id.", ".$itemtype."\n"
@@ -413,6 +425,46 @@ class PluginFusinvinventoryInventory {
             }
             $pfLib->startAction($xml, $items_id, '0');
          }
+
+         //== specific case for vm master creation (AIX LPAR) ==
+         if (isset($xml->CONTENT->HARDWARE->VMSYSTEM) 
+               && $xml->CONTENT->HARDWARE->VMSYSTEM == "AIX_LPAR") {
+            $vmname = $xml->CONTENT->HARDWARE->VMNAME;
+
+            //search for existing master
+            $query_lpar_master = "SELECT comp.id as id
+            FROM glpi_computervirtualmachines vm
+            INNER JOIN glpi_computers comp
+               ON comp.id = vm.computers_id
+            WHERE comp.serial = '".$input_rules['serialnumber']."'";
+            $res_lpar_master = $DB->query($query_lpar_master);
+            if ($DB->numrows($res_lpar_master) > 0) {
+               //existing master, get its id
+               $data_lpar_master = $DB->fetch_assoc($res_lpar_master);
+               $master_id = $data_lpar_master['id'];
+            } else {
+               //no master, create it
+               $master_computer = new Computer;
+               $master_id = $master_computer->add(array(
+                  'serial' => $input_rules['serialnumber']
+               ));
+            }
+
+            //check if a ComputerVirtualMachine exist for this slave
+            $vm = new ComputerVirtualMachine;
+            $vm_found = $vm->find("computers_id = $master_id AND name = '$vmname'");
+
+            //no link found, create it
+            if (empty($vm_found)) {
+               $vm->add(array(
+                  'entities_id'  => $_SESSION["plugin_fusinvinventory_entity"],
+                  'computers_id' => $master_id,
+                  'name'         => $vmname
+               ));
+            }
+         }
+         
+         
       } else if ($itemtype == 'PluginFusioninventoryUnknownDevice') {
          $class = new $itemtype();
          if ($items_id == "0") {
