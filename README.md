@@ -1,5 +1,5 @@
-LDAP support
-------------
+AIX LPAR support
+----------------
 
 This patch serie will be integrated in glpi0.84 branch. For the moment,
 you have to update your MySQL database yourself:
