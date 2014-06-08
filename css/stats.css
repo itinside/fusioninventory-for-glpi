@@ -1,0 +1,39 @@
+.progress-bar{
+	display: inline-block;
+	width: 180px;
+	height: 180px;
+	margin: 7px;
+	padding: 0;
+}
+.progress-bar .progress-active{
+	position: relative;
+	top: -180px;
+}
+.progress-bar p{
+	position: relative;
+	margin: 0;
+	padding: 0;
+	width: 180px;
+	top: -290px;
+	font-size: 32px;
+	font-weight: 900;
+	text-align: center;
+}
+#progressControllerContainer{
+  position: absolute;
+  bottom: 0px;
+  padding: 10px 80px;
+}
+.progressNumber{
+	position: relative;
+	top: -165px;
+   left: 185px;
+	font-size: 32px;
+	font-weight: 900;
+}
+.progressText{
+	position: relative;
+	top: -160px;
+   left: 185px;
+	font-size: 20px;
+}

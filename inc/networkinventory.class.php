@@ -568,7 +568,7 @@ class PluginFusioninventoryNetworkinventory extends PluginFusioninventoryCommuni
 
 
       $changestate = 0;
-      $taskjobstatedatas = $taskjobstate->fields;
+      $taskjobstatedatas = $jobstate->fields;
       $sxml_device = $sxml_option->addChild('DEVICE');
       $a_specificity = importArrayFromDB($taskjobstatedatas['specificity']);
       foreach($a_specificity as $key=>$value) {

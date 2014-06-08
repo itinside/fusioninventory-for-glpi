@@ -258,6 +258,7 @@ function plugin_init_fusioninventory() {
 
       $PLUGIN_HOOKS['add_css']['fusioninventory'][]="css/views.css";
       $PLUGIN_HOOKS['add_css']['fusioninventory'][]="css/deploy.css";
+      $PLUGIN_HOOKS['add_css']['fusioninventory'][]="css/stats.css";
 
       $PLUGIN_HOOKS['add_javascript']['fusioninventory'][] =
          $debug_mode?"lib/d3-3.4.3/d3.js":"lib/d3-3.4.3/d3.min.js";

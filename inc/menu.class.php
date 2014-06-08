@@ -839,11 +839,24 @@ class PluginFusioninventoryMenu extends CommonGLPI {
       $dataInventory = PluginFusioninventoryInventoryComputerStat::getLastHours();
 
 
+      echo "<div align='left' width='950' style='height: 300px;'>";
+      echo "<div style='position: relative; left: -450px;'>";
+      $percentage = ($dataComputer[0]['y'] * 100) / ($dataComputer[0]['y'] + $dataComputer[1]['y']);
+      self::showChartProgressArc('computers', $percentage, $dataComputer[0]['y'], 'computers inventoried with FusionInventory');
+      echo "</div>";
+
+      echo "<div style='position: relative; left: -60px;top: -325px;'>";
+      self::showChartProgressArc('snmp', 10, 200, 'switchs inventoried');
+      echo "</div>";
+
+      echo "</div><br/><br/><br/>";
 
       echo "<table align='center'>";
       echo "<tr height='280'>";
       echo "<td width='380'>";
-      self::showChart('computers', $dataComputer);
+//      $percentage = ($dataComputer[0]['y'] * 100) / ($dataComputer[0]['y'] + $dataComputer[1]['y']);
+//      self::showChartProgressArc('computers', $percentage, $dataComputer[0]['y'], 'computers inventoried with FusionInventory');
+//      self::showChart('computers', $dataComputer);
       echo "</td>";
       echo "<td width='380'>";
       $title = __('Number of computer inventories of last hours', 'fusioninventory');
@@ -857,7 +870,9 @@ class PluginFusioninventoryMenu extends CommonGLPI {
 
       echo "<tr height='280'>";
       echo "<td>";
-      self::showChart('snmp', $dataSNMP);
+
+//      self::showChartProgressArc('snmp', 10, 200, 'switchs inventoried');
+//      self::showChart('snmp', $dataSNMP);
       echo "</td>";
       echo "<td>";
       self::showChart('ports', $dataPortL);
@@ -888,6 +903,31 @@ class PluginFusioninventoryMenu extends CommonGLPI {
          statBar('".$name."', '".json_encode($data)."', '".$title."', '".$width."');
 </script>";
    }
+
+   static function showChartProgressArc($svgname, $counter, $number, $text) {
+
+
+      echo '<div style="width: 180px;margin: 20px auto;">
+        <div class="progress-bar">
+             <canvas id="inactiveProgress'.$svgname.'" class="progress-inactive" height="180px" width="180px"></canvas>
+          <canvas id="activeProgress'.$svgname.'" class="progress-active"  height="180px" width="180px"></canvas>
+          <p id="progress-bar-p'.$svgname.'">0%</p>
+        </div>
+        <div id="progressControllerContainer'.$svgname.'">
+          <input type="hidden" id="progressController'.$svgname.'" min="0" max="100" value="'.$counter.'" />
+        </div>
+        <div class="progressNumber">
+        '.$number.'
+        </div>
+        <div class="progressText">
+        '.$text.'
+        </div>
+      </div>
+      <script>
+      statChartProgressArc("'.$svgname.'");
+      </script>';
+   }
+
 }
 
 ?>
