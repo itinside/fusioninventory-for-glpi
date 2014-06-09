@@ -37,3 +37,7 @@
    left: 185px;
 	font-size: 20px;
 }
+
+.tick line {
+  display: none;
+}

@@ -34,17 +34,21 @@ function statBar(svgname, jsondata, title, width) {
    
    nv.addGraph(function() {
 
-      var height = 280;
+      var height = 250;
           
       var chart = nv.models.discreteBarChart()
           .x(function(d) { return d.label })
           .y(function(d) { return d.value })
           .width(width)
           .height(height)
-          .staggerLabels(true)
+          .staggerLabels(false)
           .tooltips(false)
-          .showValues(false);
+          .showValues(false)
+          .color(['#76e1e5']);
 
+      chart.yAxis
+        .tickFormat(d3.format(',.0d'));
+      
       d3.select('#' + svgname)
          .datum([JSON.parse(jsondata)])
          .call(chart);
@@ -64,7 +68,7 @@ function statBar(svgname, jsondata, title, width) {
 }
 
 
-function statChartProgressArc(svgname) {
+function statChartProgressArc(svgname, color) {
    $(document).ready(function(){
       var $pc = $('#progressController' + svgname);
       var $pCaption = $('#progress-bar-p' + svgname);
@@ -116,7 +120,7 @@ function statChartProgressArc(svgname) {
 
          barCTX.beginPath();
          barCTX.lineWidth = 12;
-         barCTX.strokeStyle = '#76e1e5';
+         barCTX.strokeStyle = '#' + color;
          barCTX.arc(90,90,56,startingAngle, endingAngle);
          barCTX.stroke();
 

@@ -762,12 +762,20 @@ class PluginFusioninventoryMenu extends CommonGLPI {
 
 
       // SNMP
-      $networkequipment = countElementsInTable('glpi_plugin_fusioninventory_networkequipments');
+      $networkequipmentFusion = countElementsInTable('glpi_plugin_fusioninventory_networkequipments');
+      $networkequipment = countElementsInTable('glpi_networkequipments',
+                                              "`is_deleted`='0' AND `is_template`='0'");
+
       $printer    = countElementsInTable('glpi_plugin_fusioninventory_printers');
 
       $dataSNMP = array();
       $dataSNMP[] = array(
-          'key' => 'NetworkEquipments (SNMP) : '.$networkequipment,
+          'key' => 'NetworkEquipments (SNMP) : '.$networkequipmentFusion,
+          'y'   => $networkequipmentFusion,
+          'color' => '#3d94ff'
+      );
+      $dataSNMP[] = array(
+          'key' => 'NetworkEquipments : '.$networkequipment,
           'y'   => $networkequipment,
           'color' => '#3d94ff'
       );
@@ -806,82 +814,107 @@ class PluginFusioninventoryMenu extends CommonGLPI {
       // Ports connected at last SNMP inventory
       $networkPortsConnected = countElementsInTable('glpi_plugin_fusioninventory_networkports',
                                                     "`ifstatus`='1' OR `ifstatus`='up'");
-      $dataPortC = array();
-      $dataPortC[] = array(
-          'key' => 'Ports connected : '.$networkPortsConnected,
-          'y'   => $networkPortsConnected,
-          'color' => '#3dff7d'
-      );
-      $dataPortC[] = array(
-          'key' => 'Ports not connected : '.($allSwitchesPortSNMP - $networkPortsConnected),
-          'y'   => ($allSwitchesPortSNMP - $networkPortsConnected),
-          'color' => '#dedede'
-      );
-
-      $dataDeploy = array();
-      $dataDeploy[] = array(
-          'key' => 'Deployment successfull : 400',
-          'y'   => 400,
-          'color' => '#3dff7d'
-      );
-      $dataDeploy[] = array(
-          'key' => 'Deployment in error : 55',
-          'y'   => 55,
-          'color' => '#ff3d3d'
-      );
-      $dataDeploy[] = array(
-          'key' => 'Deployment prepared and waiting : 568',
-          'y'   => 568,
-          'color' => '#feffc9'
-      );
 
       // Number of computer inventories in last hour, 6 hours, 24 hours
       $dataInventory = PluginFusioninventoryInventoryComputerStat::getLastHours();
 
+// ********************************* //
 
-      echo "<div align='left' width='950' style='height: 300px;'>";
-      echo "<div style='position: relative; left: -450px;'>";
+      // Get task info
+      $pfTask = new PluginFusioninventoryTask();
+      $a_tasks = $pfTask->find();
+      $a_ids = array();
+      foreach ($a_tasks as $a_task) {
+         $a_ids[] = $a_task['id'];
+      }
+      $a_logs = $pfTask->getJoblogs($a_ids);
+      $agents_success = 0;
+      $agents_error   = 0;
+      foreach ($a_logs['tasks'] as $data) {
+         foreach ($data['jobs'] as $data2) {
+            foreach ($data2['targets'] as $data3) {
+               $agents_success += current($data3['counters']['agents_success']);
+               $agents_error   += current($data3['counters']['agents_error']);
+            }
+         }
+      }
+
+
+      echo "<table align='center' style='width: 1200 px; text-align: left;' border=1>";
+      echo "</tr>";
+      echo "<td>";
+
+      echo "<div style='width: 1200px; height: 600px;position: relative;'>";
+      echo "<div style='position: absolute; left: 0px;'>";
+      $percentage = ($agents_success * 100) / ($agents_success + $agents_error);
+      self::showChartProgressArc('jobsuccess', $percentage, $agents_success, 'jobs sucessful', '5dff5d');
+      echo "</div>";
+
+      echo "<div style='position: absolute; left: 360px;'>";
       $percentage = ($dataComputer[0]['y'] * 100) / ($dataComputer[0]['y'] + $dataComputer[1]['y']);
       self::showChartProgressArc('computers', $percentage, $dataComputer[0]['y'], 'computers inventoried with FusionInventory');
       echo "</div>";
 
-      echo "<div style='position: relative; left: -60px;top: -325px;'>";
-      self::showChartProgressArc('snmp', 10, 200, 'switchs inventoried');
+      echo "<div style='position: absolute; left: 700px; width: 500px'>";
+      self::showChartBar('nbinventory', $dataInventory, '', 500);
       echo "</div>";
 
-      echo "</div><br/><br/><br/>";
 
-      echo "<table align='center'>";
-      echo "<tr height='280'>";
-      echo "<td width='380'>";
-//      $percentage = ($dataComputer[0]['y'] * 100) / ($dataComputer[0]['y'] + $dataComputer[1]['y']);
-//      self::showChartProgressArc('computers', $percentage, $dataComputer[0]['y'], 'computers inventoried with FusionInventory');
-//      self::showChart('computers', $dataComputer);
-      echo "</td>";
-      echo "<td width='380'>";
-      $title = __('Number of computer inventories of last hours', 'fusioninventory');
-      $title = '';
-      self::showChartBar('nbinventory', $dataInventory, $title);
-      echo "</td>";
-      echo "<td width='380'>";
-      self::showChart('deploy', $dataDeploy);
-      echo "</td>";
-      echo "</tr>";
+      echo "<div style='position: absolute; top: 200px;'>";
+      $percentage = ($agents_error * 100) / ($agents_success + $agents_error);
+      self::showChartProgressArc('joberror', $percentage, $agents_error, 'jobs in error', 'ff0000');
+      echo "</div>";
 
-      echo "<tr height='280'>";
-      echo "<td>";
+      echo "<div style='position: absolute; left: 360px;top: 200px;'>";
+      $percentage = ($dataSNMP[0]['y'] * 100) / ($dataSNMP[1]['y']);
+      self::showChartProgressArc('networkequipments', $percentage, $dataSNMP[0]['y'], 'network equipments inventoried with FusionInventory');
+      echo "</div>";
 
-//      self::showChartProgressArc('snmp', 10, 200, 'switchs inventoried');
-//      self::showChart('snmp', $dataSNMP);
-      echo "</td>";
-      echo "<td>";
-      self::showChart('ports', $dataPortL);
-      echo "</td>";
-      echo "<td>";
-      self::showChart('portsconnected', $dataPortC);
+      echo "<div style='position: absolute; left: 700px;top: 200px;'>";
+      $percentage = ($dataPortL[0]['y'] * 100) / ($dataPortL[0]['y'] + $dataPortL[1]['y']);
+      self::showChartProgressArc('connected ports', $percentage, $dataPortL[0]['y'], 'network ports connected to another device');
+      echo "</div>";
+
+      echo "</div>";
       echo "</td>";
       echo "</tr>";
       echo "</table>";
+
+// ********************************* //
+
+      echo "<br/><br/><br/>";
+
+//      echo "<table align='center'>";
+//      echo "<tr height='280'>";
+//      echo "<td width='380'>";
+////      $percentage = ($dataComputer[0]['y'] * 100) / ($dataComputer[0]['y'] + $dataComputer[1]['y']);
+////      self::showChartProgressArc('computers', $percentage, $dataComputer[0]['y'], 'computers inventoried with FusionInventory');
+////      self::showChart('computers', $dataComputer);
+//      echo "</td>";
+//      echo "<td width='380'>";
+//      $title = __('Number of computer inventories of last hours', 'fusioninventory');
+//      $title = '';
+////      self::showChartBar('nbinventory', $dataInventory, $title);
+//      echo "</td>";
+//      echo "<td width='380'>";
+//      self::showChart('deploy', $dataDeploy);
+//      echo "</td>";
+//      echo "</tr>";
+//
+//      echo "<tr height='280'>";
+//      echo "<td>";
+//
+////      self::showChartProgressArc('snmp', 10, 200, 'switchs inventoried');
+////      self::showChart('snmp', $dataSNMP);
+//      echo "</td>";
+//      echo "<td>";
+//      self::showChart('ports', $dataPortL);
+//      echo "</td>";
+//      echo "<td>";
+//      self::showChart('portsconnected', $dataPortC);
+//      echo "</td>";
+//      echo "</tr>";
+//      echo "</table>";
 
    }
 
@@ -897,21 +930,21 @@ class PluginFusioninventoryMenu extends CommonGLPI {
 
 
    static function showChartBar($name, $data, $title='', $width=370) {
-      echo '<svg style="background-color: #f3f3f3;" id="'.$name.'"></svg>';
+      echo '<svg id="'.$name.'"></svg>';
 
       echo "<script>
          statBar('".$name."', '".json_encode($data)."', '".$title."', '".$width."');
 </script>";
    }
 
-   static function showChartProgressArc($svgname, $counter, $number, $text) {
+   static function showChartProgressArc($svgname, $counter, $number, $text, $color='76e1e5') {
 
 
       echo '<div style="width: 180px;margin: 20px auto;">
         <div class="progress-bar">
              <canvas id="inactiveProgress'.$svgname.'" class="progress-inactive" height="180px" width="180px"></canvas>
           <canvas id="activeProgress'.$svgname.'" class="progress-active"  height="180px" width="180px"></canvas>
-          <p id="progress-bar-p'.$svgname.'">0%</p>
+          <p id="progress-bar-p'.$svgname.'" style="color: #'.$color.'">0%</p>
         </div>
         <div id="progressControllerContainer'.$svgname.'">
           <input type="hidden" id="progressController'.$svgname.'" min="0" max="100" value="'.$counter.'" />
@@ -924,7 +957,7 @@ class PluginFusioninventoryMenu extends CommonGLPI {
         </div>
       </div>
       <script>
-      statChartProgressArc("'.$svgname.'");
+      statChartProgressArc("'.$svgname.'", "'.$color.'");
       </script>';
    }
 
