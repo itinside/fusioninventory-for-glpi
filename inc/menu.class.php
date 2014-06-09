@@ -840,7 +840,7 @@ class PluginFusioninventoryMenu extends CommonGLPI {
       }
 
 
-      echo "<table align='center' style='width: 1200 px; text-align: left;' border=1>";
+      echo "<table align='center' style='width: 1200 px; text-align: left;'>";
       echo "</tr>";
       echo "<td>";
 
@@ -870,7 +870,7 @@ class PluginFusioninventoryMenu extends CommonGLPI {
       self::showChartProgressArc('networkequipments', $percentage, $dataSNMP[0]['y'], 'network equipments inventoried with FusionInventory');
       echo "</div>";
 
-      echo "<div style='position: absolute; left: 700px;top: 200px;'>";
+      echo "<div style='position: absolute; left: 720px;top: 200px;'>";
       $percentage = ($dataPortL[0]['y'] * 100) / ($dataPortL[0]['y'] + $dataPortL[1]['y']);
       self::showChartProgressArc('connected ports', $percentage, $dataPortL[0]['y'], 'network ports connected to another device');
       echo "</div>";
