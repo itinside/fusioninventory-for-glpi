@@ -872,7 +872,7 @@ class PluginFusioninventoryMenu extends CommonGLPI {
 
       echo "<div style='position: absolute; left: 720px;top: 200px;'>";
       $percentage = ($dataPortL[0]['y'] * 100) / ($dataPortL[0]['y'] + $dataPortL[1]['y']);
-      self::showChartProgressArc('connected ports', $percentage, $dataPortL[0]['y'], 'network ports connected to another device');
+      self::showChartProgressArc('connectedports', $percentage, $dataPortL[0]['y'], 'network ports of switch connected');
       echo "</div>";
 
       echo "</div>";
@@ -938,7 +938,6 @@ class PluginFusioninventoryMenu extends CommonGLPI {
    }
 
    static function showChartProgressArc($svgname, $counter, $number, $text, $color='76e1e5') {
-
 
       echo '<div style="width: 180px;margin: 20px auto;">
         <div class="progress-bar">
